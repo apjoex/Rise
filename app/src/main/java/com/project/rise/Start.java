@@ -1,0 +1,116 @@
+package com.project.rise;
+
+import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
+import adapters.ViewPagerAdapter;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
+public class Start extends AppCompatActivity {
+
+    Context context;
+    @InjectView(R.id.tabs) TabLayout tabs;
+    @InjectView(R.id.pager) ViewPager pager;
+
+    CharSequence Titles[]={"PRESETS","CUSTOM"};
+    int Numboftabs = 2;
+    ViewPagerAdapter adapter;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_start);
+        context = this;
+        ButterKnife.inject(this);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.close);
+        getSupportActionBar().setTitle("Rise");
+        getSupportActionBar().setElevation(0);
+
+        adapter = setupAdapter();
+        pager.setAdapter(adapter);
+
+        tabs.setTabMode(TabLayout.MODE_FIXED);
+        tabs.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        tabs.setupWithViewPager(pager);
+
+    }
+
+
+
+    private ViewPagerAdapter setupAdapter() {
+
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(),Titles,Numboftabs);
+        return adapter;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_start, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+
+        if(id == android.R.id.home){
+            showExit();
+        }
+
+        if(id == R.id.action_credit){
+            AlertDialog.Builder credit_builder = new AlertDialog.Builder(context);
+            LayoutInflater inflater = getLayoutInflater();
+            View creditView = inflater.inflate(R.layout.credits, null);
+            TextView credits = (TextView)creditView.findViewById(R.id.credit_text);
+            credits.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Gotham-Medium.otf"));
+            credit_builder.setTitle("Credits")
+                    .setView(creditView)
+                    .create().show();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        showExit();
+    }
+
+    private void showExit() {
+        AlertDialog.Builder exit_builder = new AlertDialog.Builder(context);
+        exit_builder.setTitle("Exit")
+                .setMessage("Do you really want to exit this app?")
+                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .create().show();
+    }
+}
