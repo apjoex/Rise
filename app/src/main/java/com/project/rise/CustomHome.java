@@ -34,6 +34,7 @@ public class CustomHome extends AppCompatActivity {
     @InjectView(R.id.load_3) TextView load_3;
     @InjectView(R.id.cycle_3) TextView cycle_3;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

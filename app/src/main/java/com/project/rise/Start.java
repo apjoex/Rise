@@ -2,18 +2,16 @@ package com.project.rise;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 
+import adapters.ModalBottomSheet;
 import adapters.ViewPagerAdapter;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -23,6 +21,9 @@ public class Start extends AppCompatActivity {
     Context context;
     @InjectView(R.id.tabs) TabLayout tabs;
     @InjectView(R.id.pager) ViewPager pager;
+    @InjectView(R.id.coordinatorLayout) CoordinatorLayout coordinatorLayout;
+//    View bottomSheet;
+//    BottomSheetBehavior behavior;
 
     CharSequence Titles[]={"PRESETS","CUSTOM"};
     int Numboftabs = 2;
@@ -33,9 +34,9 @@ public class Start extends AppCompatActivity {
         setContentView(R.layout.activity_start);
         context = this;
         ButterKnife.inject(this);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.close);
-        getSupportActionBar().setTitle("Rise");
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setHomeAsUpIndicator(R.drawable.close);
+        getSupportActionBar().setTitle("Home");
         getSupportActionBar().setElevation(0);
 
         adapter = setupAdapter();
@@ -45,6 +46,11 @@ public class Start extends AppCompatActivity {
         tabs.setTabGravity(TabLayout.GRAVITY_FILL);
 
         tabs.setupWithViewPager(pager);
+
+//        bottomSheet = coordinatorLayout.findViewById(R.id.design_bottom_sheet);
+//        behavior = BottomSheetBehavior.from(bottomSheet);
+//        behavior.setPeekHeight(10);
+
 
     }
 
@@ -77,14 +83,20 @@ public class Start extends AppCompatActivity {
         }
 
         if(id == R.id.action_credit){
-            AlertDialog.Builder credit_builder = new AlertDialog.Builder(context);
-            LayoutInflater inflater = getLayoutInflater();
-            View creditView = inflater.inflate(R.layout.credits, null);
-            TextView credits = (TextView)creditView.findViewById(R.id.credit_text);
-            credits.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Gotham-Medium.otf"));
-            credit_builder.setTitle("Credits")
-                    .setView(creditView)
-                    .create().show();
+//            AlertDialog.Builder credit_builder = new AlertDialog.Builder(context);
+//            LayoutInflater inflater = getLayoutInflater();
+//            View creditView = inflater.inflate(R.layout.credits, null);
+//            TextView credits = (TextView)creditView.findViewById(R.id.credit_text);
+//            credits.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Gotham-Medium.otf"));
+//            credit_builder.setTitle("Credits")
+//                    .setView(creditView)
+//                    .create().show();
+
+
+//            behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+            ModalBottomSheet modalBottomSheet = new ModalBottomSheet();
+            modalBottomSheet.show(getSupportFragmentManager(), "bottom sheet");
         }
 
         return super.onOptionsItemSelected(item);
