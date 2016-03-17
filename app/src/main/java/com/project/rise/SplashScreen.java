@@ -4,11 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -20,10 +20,10 @@ public class SplashScreen extends AppCompatActivity {
     Context context;
     @InjectView(R.id.app_label) TextView label;
     @InjectView(R.id.app_text) TextView text;
-    @InjectView(R.id.start) Button start_btn;
     @InjectView(R.id.more_info)RelativeLayout more_info;
 
     Animation animFadein;
+    public static int SPLASH_TIME = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +40,15 @@ public class SplashScreen extends AppCompatActivity {
 
         label.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/powerless.ttf"));
         text.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/Gotham-Medium.otf"));
-        start_btn.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/powerless.ttf"));
 
-        start_btn.setOnClickListener(new View.OnClickListener() {
+
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void onClick(View view) {
+            public void run() {
                 Intent intent = new Intent(context, Start.class);
                 startActivity(intent);
                 finish();
             }
-        });
+        }, SPLASH_TIME);
     }
 }

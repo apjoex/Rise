@@ -2,6 +2,7 @@ package com.project.rise;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
@@ -10,11 +11,15 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import adapters.ModalBottomSheet;
 import adapters.ViewPagerAdapter;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class Start extends AppCompatActivity {
 
@@ -46,15 +51,13 @@ public class Start extends AppCompatActivity {
         tabs.setTabGravity(TabLayout.GRAVITY_FILL);
 
         tabs.setupWithViewPager(pager);
+        changeTabsFont();
 
 //        bottomSheet = coordinatorLayout.findViewById(R.id.design_bottom_sheet);
 //        behavior = BottomSheetBehavior.from(bottomSheet);
 //        behavior.setPeekHeight(10);
 
-
     }
-
-
 
     private ViewPagerAdapter setupAdapter() {
 
@@ -124,5 +127,26 @@ public class Start extends AppCompatActivity {
                     }
                 })
                 .create().show();
+    }
+
+    private void changeTabsFont() {
+
+        ViewGroup vg = (ViewGroup) tabs.getChildAt(0);
+        int tabsCount = vg.getChildCount();
+        for (int j = 0; j < tabsCount; j++) {
+            ViewGroup vgTab = (ViewGroup) vg.getChildAt(j);
+            int tabChildsCount = vgTab.getChildCount();
+            for (int i = 0; i < tabChildsCount; i++) {
+                View tabViewChild = vgTab.getChildAt(i);
+                if (tabViewChild instanceof TextView) {
+                    ((TextView) tabViewChild).setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Gotham-Medium.otf"));
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

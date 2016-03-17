@@ -3,7 +3,6 @@ package fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -38,7 +37,6 @@ public class Custom extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v =inflater.inflate(R.layout.fragment_custom,container,false);
         ButterKnife.inject(this, v);
-        placeholder.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Gotham-Medium.otf"));
         add.setRippleColor(Color.rgb(230, 230, 230));
         clickEvents();
         return v;

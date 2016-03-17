@@ -1,7 +1,6 @@
 package com.project.rise;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -9,31 +8,25 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
+import adapters.ApplianceAdapter;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import models.Appliance;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class CustomHome extends AppCompatActivity {
 
     Context context;
-    @InjectView(R.id.appliance) TextView appliance;
-
-    @InjectView(R.id.lightings_text) TextView lightings_text;
-    @InjectView(R.id.count_1) TextView count_1;
-    @InjectView(R.id.load_1) TextView load_1;
-    @InjectView(R.id.cycle_1) TextView cycle_1;
-
-    @InjectView(R.id.tv_text) TextView tv_text;
-    @InjectView(R.id.count_2) TextView count_2;
-    @InjectView(R.id.load_2) TextView load_2;
-    @InjectView(R.id.cycle_2) TextView cycle_2;
-
-    @InjectView(R.id.fridge_text) TextView fridge_text;
-    @InjectView(R.id.count_3) TextView count_3;
-    @InjectView(R.id.load_3) TextView load_3;
-    @InjectView(R.id.cycle_3) TextView cycle_3;
-
+    @InjectView(R.id.appliance_list) ListView appliance_list;
+    ArrayList<Appliance> appliances = new ArrayList<>();
+    ApplianceAdapter adapter;
+    Button add;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,25 +36,29 @@ public class CustomHome extends AppCompatActivity {
         ButterKnife.inject(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Appliances");
-        appliance.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Gotham-Medium.otf"));
 
+        appliances.add(new Appliance("ENTER APPLIANCE NAME", "0", "0", "1"));
 
-        lightings_text.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Gotham-Medium.otf"));
-        count_1.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Gotham-Medium.otf"));
-        load_1.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Gotham-Medium.otf"));
-        cycle_1.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/Gotham-Medium.otf"));
+        adapter = new ApplianceAdapter(context, appliances);
+        appliance_list.setAdapter(adapter);
 
-        tv_text.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Gotham-Medium.otf"));
-        count_2.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/Gotham-Medium.otf"));
-        load_2.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/Gotham-Medium.otf"));
-        cycle_2.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/Gotham-Medium.otf"));
-
-        fridge_text.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Gotham-Medium.otf"));
-        count_3.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/Gotham-Medium.otf"));
-        load_3.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/Gotham-Medium.otf"));
-        cycle_3.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/Gotham-Medium.otf"));
+        View footerView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.footer_layout, null, false);
+        appliance_list.addFooterView(footerView);
+        add = (Button)footerView.findViewById(R.id.add_appliance);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addAppliance();
+            }
+        });
 
     }
+
+    private void addAppliance() {
+        appliances.add(new Appliance("ENTER APPLIANCE NAME", "0", "0", "1"));
+        adapter.notifyDataSetChanged();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -88,12 +85,16 @@ public class CustomHome extends AppCompatActivity {
             LayoutInflater inflater = getLayoutInflater();
             View infoView = inflater.inflate(R.layout.quick_info, null);
             TextView info = (TextView)infoView.findViewById(R.id.info_text);
-            info.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Gotham-Medium.otf"));
             info_builder.setTitle("Quick Info")
                     .setView(infoView)
                     .create().show();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }
