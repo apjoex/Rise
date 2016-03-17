@@ -9,6 +9,7 @@
         android:text="ADD APPLIANCE"
         android:layout_gravity="center"
         android:backgroundTint="#FFF"
+        style="@style/Base.Widget.AppCompat.Button"
         android:textColor="@color/colorPrimary"
         android:id="@+id/add_appliance" />
 

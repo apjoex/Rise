@@ -4,8 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.PopupMenu;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -36,7 +35,6 @@ public class ApplianceAdapter extends BaseAdapter {
     public ApplianceAdapter(Context context, ArrayList<Appliance> appliances){
         this.context = context;
         this.appliances = appliances;
-
     }
 
 
@@ -97,6 +95,7 @@ public class ApplianceAdapter extends BaseAdapter {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     appliances.get(position).setName(""+textEditor.getText().toString());
+                                    notifyDataSetChanged();
                                 }
                             })
                             .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
@@ -136,6 +135,7 @@ public class ApplianceAdapter extends BaseAdapter {
                                             Log.e("", "New Quantity Value : " + aNumberPicker.getValue());
                                             viewHolder.appliance_duration.setText("" + aNumberPicker.getValue());
                                             appliances.get(position).setDuration("" + "" + aNumberPicker.getValue());
+                                            notifyDataSetChanged();
                                         }
                                     })
                             .setNegativeButton("CANCEL",
@@ -150,50 +150,89 @@ public class ApplianceAdapter extends BaseAdapter {
                 }
             });
 
-//            viewHolder.appliance_count.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//                @Override
-//                public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-//                    if (i == EditorInfo.IME_ACTION_DONE) {
-//
-//                        appliances.get(position).setCount("" + textView.getText().toString());
-//
-//                        return true;
-//                    }
-//                    return false;
-//                }
-//            });
-
-            viewHolder.appliance_wattage.addTextChangedListener(new TextWatcher() {
+            viewHolder.appliance_count.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    appliances.get(position).setWattage(charSequence.toString());
-                }
+                public void onClick(View view) {
+                    RelativeLayout linearLayout = new RelativeLayout(context);
+                    final EditText textEditor = new EditText(context);
+                    textEditor.setInputType(InputType.TYPE_CLASS_NUMBER);
 
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    appliances.get(position).setWattage(charSequence.toString());
-                }
+                    if(!viewHolder.appliance_count.getText().toString().equals("0")){
+                        textEditor.setText(""+viewHolder.appliance_count.getText().toString());
+                    }else{
+                        textEditor.setHint("Enter count");
+                    }
 
-                @Override
-                public void afterTextChanged(Editable editable) {
-                    appliances.get(position).setWattage(editable.toString());
+                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                    RelativeLayout.LayoutParams numPicerParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                    numPicerParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+
+                    linearLayout.setLayoutParams(params);
+                    linearLayout.setPadding(32, 30, 32, 10);
+                    linearLayout.addView(textEditor, numPicerParams);
+
+                    AlertDialog.Builder editorBuilder = new AlertDialog.Builder(context);
+                    editorBuilder.setView(linearLayout)
+                            .setTitle("Count")
+                            .setCancelable(true)
+                            .setPositiveButton("SET", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    appliances.get(position).setCount("" + textEditor.getText().toString());
+                                    notifyDataSetChanged();
+                                }
+                            })
+                            .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            });
+                    AlertDialog alertDialog = editorBuilder.create();
+                    alertDialog.show();
                 }
             });
 
-            viewHolder.appliance_count.addTextChangedListener(new TextWatcher() {
+            viewHolder.appliance_wattage.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    appliances.get(position).setCount(charSequence.toString());
-                }
+                public void onClick(View view) {
+                    RelativeLayout linearLayout = new RelativeLayout(context);
+                    final EditText textEditor = new EditText(context);
+                    textEditor.setInputType(InputType.TYPE_CLASS_NUMBER);
 
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    appliances.get(position).setCount(charSequence.toString());
-                }
+                    if(!viewHolder.appliance_wattage.getText().toString().equals("0")){
+                        textEditor.setText(""+viewHolder.appliance_wattage.getText().toString());
+                    }else{
+                        textEditor.setHint("Enter AC Load Wattage");
+                    }
 
-                @Override
-                public void afterTextChanged(Editable editable) {
-                    appliances.get(position).setCount(editable.toString());
+                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                    RelativeLayout.LayoutParams numPicerParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                    numPicerParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+
+                    linearLayout.setLayoutParams(params);
+                    linearLayout.setPadding(32,30,32,10);
+                    linearLayout.addView(textEditor, numPicerParams);
+
+                    AlertDialog.Builder editorBuilder = new AlertDialog.Builder(context);
+                    editorBuilder.setView(linearLayout)
+                            .setTitle("AC Load Wattage")
+                            .setCancelable(true)
+                            .setPositiveButton("SET", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    appliances.get(position).setWattage("" + textEditor.getText().toString());
+                                    notifyDataSetChanged();
+                                }
+                            })
+                            .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            });
+                    AlertDialog alertDialog = editorBuilder.create();
+                    alertDialog.show();
                 }
             });
 
@@ -231,6 +270,7 @@ public class ApplianceAdapter extends BaseAdapter {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
                                                 appliances.get(position).setName(""+textEditor.getText().toString());
+                                                notifyDataSetChanged();
                                             }
                                         })
                                         .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
@@ -244,7 +284,7 @@ public class ApplianceAdapter extends BaseAdapter {
                             }
 
                             if(id == R.id.action_delete){
-                                appliances.remove(position);
+                                appliances.remove(appliances.get(position));
                                 notifyDataSetChanged();
                             }
                             return false;
@@ -273,8 +313,8 @@ public class ApplianceAdapter extends BaseAdapter {
         }
 
         viewHolder.appliance_name.setText(appliances.get(position).getName());
-        viewHolder.appliance_count.setHint(appliances.get(position).getCount());
-        viewHolder.appliance_wattage.setHint(appliances.get(position).getWattage());
+        viewHolder.appliance_count.setText(appliances.get(position).getCount());
+        viewHolder.appliance_wattage.setText(appliances.get(position).getWattage());
         viewHolder.appliance_duration.setText(appliances.get(position).getDuration());
 
         return view;
