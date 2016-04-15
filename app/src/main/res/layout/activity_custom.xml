@@ -3,17 +3,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     tools:context=".CustomHome"
     android:background="#f0f0f0">
 
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/back_view">
 
-        <ListView
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@null"
             android:listSelector="@android:color/transparent"
             android:id="@+id/appliance_list"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/add"
+            app:backgroundTint="@color/colorPrimary"
+            app:rippleColor="#e6e6e6"
+            app:fabSize="normal"
+            android:id="@+id/add_appliance"
+            android:layout_margin="16dp"
+            app:elevation="6dp"
+            app:pressedTranslationZ="12dp"
+            android:layout_gravity="bottom|end"/>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/colorPrimary"
+        android:id="@+id/cover"
+        android:elevation="8dp" />
 
 
 </RelativeLayout>

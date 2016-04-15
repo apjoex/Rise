@@ -1,9 +1,12 @@
 package models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by AKINDE-PETERS on 3/16/2016.
  */
-public class Appliance {
+public class Appliance implements Parcelable {
 
     public String name, count, wattage, duration;
 
@@ -18,6 +21,25 @@ public class Appliance {
 
 
     //// getters ////
+
+    protected Appliance(Parcel in) {
+        name = in.readString();
+        count = in.readString();
+        wattage = in.readString();
+        duration = in.readString();
+    }
+
+    public static final Creator<Appliance> CREATOR = new Creator<Appliance>() {
+        @Override
+        public Appliance createFromParcel(Parcel in) {
+            return new Appliance(in);
+        }
+
+        @Override
+        public Appliance[] newArray(int size) {
+            return new Appliance[size];
+        }
+    };
 
     public String getName(){
         return this.name;
@@ -59,5 +81,17 @@ public class Appliance {
         return this.name;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeString(count);
+        parcel.writeString(wattage);
+        parcel.writeString(duration);
+    }
 }
 
