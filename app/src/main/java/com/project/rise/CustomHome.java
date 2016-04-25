@@ -3,6 +3,7 @@ package com.project.rise;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -74,6 +75,7 @@ public class CustomHome extends AppCompatActivity {
                     anim = ViewAnimationUtils.createCircularReveal(cover, cx, cy, initialRadius, 0);
                 } else {
                     cover.setVisibility(View.INVISIBLE);
+                    add_appliance.show();
                 }
 
                 if (anim != null) {
@@ -175,9 +177,7 @@ public class CustomHome extends AppCompatActivity {
         if(id == R.id.action_proceed){
             if(appliances.size() != 0 ){
                 if(validateAppliances()){
-                    Intent intent = new Intent(context, Details.class);
-                    intent.putParcelableArrayListExtra("appliances", appliances);
-                    startActivity(intent);
+                   chooseLocation();
                 }else{
                     Snackbar.make(back_view,"Please fill all the fields for your appliances",Snackbar.LENGTH_SHORT).show();
                 }
@@ -194,6 +194,27 @@ public class CustomHome extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void chooseLocation() {
+        AlertDialog.Builder stateBuilder = new AlertDialog.Builder(context);
+        final CharSequence[] states = {"Abia","Adamawa","Akwa Ibom","Anambra","Bauchi","Bayelsa","Benue","Borno","Cross River","Delta","Ebonyi","Edo", "Ekiti","Enugu","FCT","Gombe","Imo","Jigawa","Kaduna","Kano","Katsina","Kebbi","Kogi","Kwara","Lagos","Nasarawa","Niger","Ogun","Ondo","Osun","Oyo","Plateau","Rivers","Sokoto","Taraba","Yobe","Zamfara"};
+        stateBuilder.setTitle("Choose Location")
+                .setItems(states, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        Toast.makeText(Details.this, "You selected "+states[i]+" state.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(context, Details.class);
+                        intent.putParcelableArrayListExtra("appliances", appliances);
+                        intent.putExtra("state", states[i].toString());
+                        intent.putExtra("state_position", i);
+                        startActivity(intent);
+//                        state_selected = states[i].toString();
+                    }
+                })
+                .create().show();
+
+
     }
 
     private boolean validateAppliances() {

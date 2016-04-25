@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 
 import models.Appliance;
+import models.Home;
 
 /**
  * Created by AKINDE-PETERS on 3/16/2016.
@@ -25,6 +26,7 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE appliances (_id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,count TEXT,wattage TEXT,duration TEXT);");
+        db.execSQL("CREATE TABLE customhomes (_id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,appliances TEXT,location TEXT);");
     }
 
     @Override
@@ -68,5 +70,43 @@ public class Database extends SQLiteOpenHelper {
         return appliance;
     }
 
+    public void saveCustomHome(ArrayList <Home> customhomes){
+        for(int g = 0;g< customhomes.size();g++){
+            String query = " SELECT * FROM customhomes WHERE name = '"+customhomes.get(g).getName()+"'";
+            Cursor cursor = getReadableDatabase().rawQuery(query,null);
 
+            ContentValues cv = new ContentValues();
+            cv.put("name", customhomes.get(g).getName());
+            cv.put("appliances", customhomes.get(g).getAppliances());
+            cv.put("location", customhomes.get(g).getLocation());
+            if(cursor.getCount() + 0 == 0){
+                getWritableDatabase().insert("customhomes","name", cv);
+            }else{
+                String[] args={customhomes.get(g).getName()};
+                getWritableDatabase().update("customhomes",cv,"name=?", args);
+            }
+            cursor.close();
+        }
+    }
+
+    public ArrayList <Home> getCustomhomes(){
+        ArrayList <Home> customhome = new ArrayList<Home>();
+        String query = " SELECT * FROM customhomes";
+        Cursor cursor = getReadableDatabase().rawQuery(query,null);
+        while(cursor.moveToNext()){
+            customhome.add(new Home(
+                    cursor.getString(cursor.getColumnIndex("name")),
+                    cursor.getString(cursor.getColumnIndex("appliances")),
+                    cursor.getString(cursor.getColumnIndex("location"))
+                    ));
+        }
+        close();
+        return customhome;
+    }
+
+
+    public void deleteHome(String name) {
+        String query = "DELETE FROM customhomes WHERE name ='"+name+"'";
+        getWritableDatabase().execSQL(query);
+    }
 }

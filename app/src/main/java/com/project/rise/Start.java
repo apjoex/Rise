@@ -2,7 +2,9 @@ package com.project.rise;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
@@ -15,7 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import adapters.ModalBottomSheet;
+import java.util.Random;
+
 import adapters.ViewPagerAdapter;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -41,7 +44,7 @@ public class Start extends AppCompatActivity {
         ButterKnife.inject(this);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        getSupportActionBar().setHomeAsUpIndicator(R.drawable.close);
-        getSupportActionBar().setTitle("Home");
+        getSupportActionBar().setTitle("Rise");
         getSupportActionBar().setElevation(0);
 
         adapter = setupAdapter();
@@ -85,22 +88,55 @@ public class Start extends AppCompatActivity {
             showExit();
         }
 
-        if(id == R.id.action_credit){
-//            AlertDialog.Builder credit_builder = new AlertDialog.Builder(context);
-//            LayoutInflater inflater = getLayoutInflater();
-//            View creditView = inflater.inflate(R.layout.credits, null);
-//            TextView credits = (TextView)creditView.findViewById(R.id.credit_text);
-//            credits.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Gotham-Medium.otf"));
-//            credit_builder.setTitle("Credits")
-//                    .setView(creditView)
-//                    .create().show();
-
-
-//            behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-
-            ModalBottomSheet modalBottomSheet = new ModalBottomSheet();
-            modalBottomSheet.show(getSupportFragmentManager(), "bottom sheet");
+        if(id == R.id.action_about){
+            Intent intent = new Intent(context, About.class);
+            startActivity(intent);
         }
+
+        if(id == R.id.action_tips){
+            final CharSequence[] messages = {"This is the first message","This is the second message","This is the third message"};
+            final int min = 0;
+            final int max = 2;
+            final Random r = new Random();
+
+
+            final AlertDialog.Builder tipsBuilder = new AlertDialog.Builder(context);
+            tipsBuilder.setTitle("Tips")
+                    .setMessage(messages[r.nextInt(max - min + 1) + min])
+                    .setPositiveButton("NEXT TIP", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            tipsBuilder.setMessage(messages[r.nextInt(max - min + 1) + min])
+                                    .create().show();
+                        }
+                    })
+                    .create().show();
+        }
+
+        if(id == R.id.action_feedback){
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                    "mailto", "apjoex@gmail.com", null));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback on RISE");
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "");
+            startActivity(Intent.createChooser(emailIntent, "Send feedback"));
+        }
+
+//        if(id == R.id.action_credit){
+////            AlertDialog.Builder credit_builder = new AlertDialog.Builder(context);
+////            LayoutInflater inflater = getLayoutInflater();
+////            View creditView = inflater.inflate(R.layout.credits, null);
+////            TextView credits = (TextView)creditView.findViewById(R.id.credit_text);
+////            credits.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Gotham-Medium.otf"));
+////            credit_builder.setTitle("Credits")
+////                    .setView(creditView)
+////                    .create().show();
+//
+//
+////            behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+//
+//            ModalBottomSheet modalBottomSheet = new ModalBottomSheet();
+//            modalBottomSheet.show(getSupportFragmentManager(), "bottom sheet");
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -123,7 +159,7 @@ public class Start extends AppCompatActivity {
                 .setNegativeButton("NO", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        dialogInterface.dismiss();
                     }
                 })
                 .create().show();

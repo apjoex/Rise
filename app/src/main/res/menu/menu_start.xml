@@ -5,8 +5,12 @@
         android:id="@+id/action_about"
         android:orderInCategory="1"/>
 
-    <item android:title="Credits"
-        android:id="@+id/action_credit"
+    <item android:title="Tips"
+        android:id="@+id/action_tips"
+        android:orderInCategory="2"/>
+
+    <item android:title="Send feedback"
+        android:id="@+id/action_feedback"
         android:orderInCategory="2"/>
 
     <!--<item android:title="Learn"-->

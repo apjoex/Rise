@@ -1,21 +1,13 @@
 package com.project.rise;
 
-import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -25,9 +17,15 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
@@ -41,19 +39,22 @@ import java.util.Random;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import connectors.Database;
 import models.Appliance;
+import models.Home;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class Details extends AppCompatActivity {
     Context context;
     ArrayList<Appliance> appliances = new ArrayList<>();
-    @InjectView(R.id.daily_demand_value)
-    TextView daily_demand_value;
-    @InjectView(R.id.chart_cover)
-    LinearLayout chart_cover;
-    @InjectView(R.id.calc_btn)
-    Button calc_btn;
+    @InjectView(R.id.daily_demand_value) TextView daily_demand_value;
+    @InjectView(R.id.chart_cover) LinearLayout chart_cover;
+    @InjectView(R.id.calc_btn) Button calc_btn;
+    @InjectView(R.id.location) TextView location;
+    String state_selected = "";
     int load_demand;
+    Database database;
+
 
     private CategorySeries mSeries = new CategorySeries("");
     private DefaultRenderer mRenderer = new DefaultRenderer();
@@ -63,15 +64,19 @@ public class Details extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_result);
+        setContentView(R.layout.activity_details);
         context = this;
         ButterKnife.inject(this);
+        database = new Database(context);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Home Details");
         appliances = (ArrayList<Appliance>) getIntent().getSerializableExtra("appliances");
+        state_selected = getIntent().getStringExtra("state");
         String[] NAME_LIST = new String[appliances.size()];
         double[] VALUES = new double[appliances.size()];
         int[] COLORS = new int[appliances.size()];
+
+        location.setText(state_selected+" state");
 
         load_demand = 0;
 
@@ -128,162 +133,24 @@ public class Details extends AppCompatActivity {
         calc_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                CharSequence[] options = {"Choose State", "Use GPS coordinates"};
-                builder.setItems(options, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (i == 0) {
-                            AlertDialog.Builder stateBuilder = new AlertDialog.Builder(context);
-                            final CharSequence[] states = {"Abia","Adamawa","Akwa Ibom","Anambra","Bauchi","Bayelsa","Benue","Borno","Cross River","Delta","Ebonyi","Edo", "Ekiti","Enugu","FCT","Gombe","Imo","Jigawa","Kaduna","Kano","Katsina","Kebbi","Kogi","Kwara","Lagos","Nasarawa","Niger","Ogun","Ondo","Osun","Oyo","Plateau","Rivers","Sokoto","Taraba","Yobe","Zamfara"};
-                            stateBuilder.setTitle("Choose State")
-                                    .setItems(states, new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                            Toast.makeText(Details.this, "You selected "+states[i]+" state.", Toast.LENGTH_SHORT).show();
-                                        }
-                                    })
-                                    .create().show();
-                        } else {
-                            getLocation();
-                        }
-                    }
-                }).setTitle("Location").create().show();
+//                AlertDialog.Builder stateBuilder = new AlertDialog.Builder(context);
+//                final CharSequence[] states = {"Abia","Adamawa","Akwa Ibom","Anambra","Bauchi","Bayelsa","Benue","Borno","Cross River","Delta","Ebonyi","Edo", "Ekiti","Enugu","FCT","Gombe","Imo","Jigawa","Kaduna","Kano","Katsina","Kebbi","Kogi","Kwara","Lagos","Nasarawa","Niger","Ogun","Ondo","Osun","Oyo","Plateau","Rivers","Sokoto","Taraba","Yobe","Zamfara"};
+//                stateBuilder.setTitle("Choose Location")
+//                        .setItems(states, new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                Toast.makeText(Details.this, "You selected "+states[i]+" state.", Toast.LENGTH_SHORT).show();
+//                            }
+//                        })
+//                        .create().show();
+
+                Intent intent = new Intent(context, Result.class);
+                intent.putExtra("load_Demand",load_demand);
+                startActivity(intent);
             }
         });
     }
 
-    private void getLocation() {
-        if (checkLocationEnabled()) {
-            final LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-            Criteria criteria = new Criteria();
-            String bestProvider = locationManager.getBestProvider(criteria, false);
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return;
-            }
-            Location location = locationManager.getLastKnownLocation(bestProvider);
-            final Double[] myLatitude = new Double[1];
-            final Double[] myLongitude = new Double[1];
-            try {
-                myLatitude[0] = location.getLatitude();
-                myLongitude[0] = location.getLongitude();
-                Toast.makeText(Details.this, "Latitude: " + myLatitude[0] + " and Longitude: " + myLongitude[0] + "", Toast.LENGTH_SHORT).show();
-            } catch (NullPointerException e) {
-                Toast.makeText(Details.this, "Getting your location... Please try again in some seconds", Toast.LENGTH_SHORT).show();
-                locationManager.requestLocationUpdates(
-                        LocationManager.GPS_PROVIDER,
-                        1000 * 30 * 1,
-                        10, new LocationListener() {
-                            @Override
-                            public void onLocationChanged(Location location) {
-                                myLatitude[0] = location.getLatitude();
-                                myLongitude[0] = location.getLongitude();
-                                Log.d("LOCATION LAT", myLatitude[0] + "");
-                                Log.d("LOCATION LONG", myLongitude[0] + "");
-                                if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                                    // TODO: Consider calling
-                                    //    ActivityCompat#requestPermissions
-                                    // here to request the missing permissions, and then overriding
-                                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                                    //                                          int[] grantResults)
-                                    // to handle the case where the user grants the permission. See the documentation
-                                    // for ActivityCompat#requestPermissions for more details.
-                                    return;
-                                }
-                                locationManager.removeUpdates(new LocationListener() {
-                                    @Override
-                                    public void onLocationChanged(Location location) {
-
-                                    }
-
-                                    @Override
-                                    public void onStatusChanged(String s, int i, Bundle bundle) {
-
-                                    }
-
-                                    @Override
-                                    public void onProviderEnabled(String s) {
-
-                                    }
-
-                                    @Override
-                                    public void onProviderDisabled(String s) {
-
-                                    }
-                                });
-                                Toast.makeText(Details.this, "Latitude: "+ myLatitude[0] +" and Longitude: "+ myLongitude[0] +"", Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onStatusChanged(String s, int i, Bundle bundle) {
-
-                            }
-
-                            @Override
-                            public void onProviderEnabled(String s) {
-
-                            }
-
-                            @Override
-                            public void onProviderDisabled(String s) {
-
-                            }
-                        });
-            }
-
-        }else{
-            Snackbar.make(getWindow().getDecorView(), "GPS is not enabled", Snackbar.LENGTH_LONG).setAction("TURN ON", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    context.startActivity(intent);
-                }
-            }).show();
-        }
-    }
-
-//    private void getLocation() {
-//        final GPSTracker tracker = new GPSTracker(context);
-//        if (checkLocationEnabled()) {
-//
-//            Double myLatitude, myLongitude;
-//
-//            if (!tracker.canGetLocation()) {
-//                tracker.showSettingsAlert();
-//            } else {
-//                myLatitude = tracker.getLatitude();
-//                myLongitude = tracker.getLongitude();
-//
-//                if (myLatitude != 0.0 && myLongitude != 0.0) {
-//                    Toast.makeText(Details.this, "Latitude: "+myLatitude+" and Longitude: "+myLongitude+"", Toast.LENGTH_SHORT).show();
-//                }else{
-//                    Toast.makeText(Details.this, "Latitude: "+myLatitude+" and Longitude: "+myLongitude+"", Toast.LENGTH_SHORT).show();
-//                }
-//
-//            }
-//        }else {
-//            Snackbar.make(getWindow().getDecorView(), "GPS is not enabled", LENGTH_LONG).setAction("TURN ON", new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    tracker.showSettingsAlert();
-//                }
-//            }).show();
-//        }
-//    }
-
-    private boolean checkLocationEnabled(){
-        LocationManager service = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        boolean enabled = service.isProviderEnabled(LocationManager.GPS_PROVIDER) || service.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-
-        return enabled;
-    }
 
     @Override
     protected void onResume() {
@@ -291,7 +158,6 @@ public class Details extends AppCompatActivity {
         if (mChartView == null) {
             LinearLayout layout = (LinearLayout) findViewById(R.id.chart);
             mChartView = ChartFactory.getPieChartView(this, mSeries, mRenderer);
-//            mRenderer.setClickEnabled(true);
             mRenderer.setSelectableBuffer(10);
 
             mChartView.setOnClickListener(new View.OnClickListener() {
@@ -299,30 +165,12 @@ public class Details extends AppCompatActivity {
                 public void onClick(View v) {
                     SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
 
-                    if (seriesSelection == null) {
-//                        Toast.makeText(context, "No chart element was clicked", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-//                        Toast.makeText(context,"Chart element data point index "+  (seriesSelection.getPointIndex()+1) + " was clicked" + " point value="+ seriesSelection.getValue(), Toast.LENGTH_SHORT).show();
+                    if (seriesSelection != null) {
                         Toast.makeText(Details.this, ""+appliances.get(seriesSelection.getPointIndex()).getName()+ " ("+seriesSelection.getValue()+" Wh)", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
 
-//            mChartView.setOnLongClickListener(new View.OnLongClickListener() {
-//                @Override
-//                public boolean onLongClick(View v) {
-//                    SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
-//                    if (seriesSelection == null) {
-//                        Toast.makeText(context,"No chart element was long pressed", Toast.LENGTH_SHORT);
-//                        return false;
-//                    }
-//                    else {
-//                        Toast.makeText(context, "Chart element data point index " + seriesSelection.getPointIndex() + " was long pressed", Toast.LENGTH_SHORT);
-//                        return true;
-//                    }
-//                }
-//            });
             layout.addView(mChartView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT));
         }
         else {
@@ -409,6 +257,53 @@ public class Details extends AppCompatActivity {
 
         if(id == android.R.id.home){
             finish();
+        }
+
+        if (id == R.id.action_save){
+            RelativeLayout linearLayout = new RelativeLayout(context);
+            final EditText textEditor = new EditText(context);
+            textEditor.setHint("Enter name");
+
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            RelativeLayout.LayoutParams numPicerParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            numPicerParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+
+            linearLayout.setLayoutParams(params);
+            linearLayout.setPadding(32,30,32,10);
+            linearLayout.addView(textEditor, numPicerParams);
+
+            AlertDialog.Builder editorBuilder = new AlertDialog.Builder(context);
+            editorBuilder.setView(linearLayout)
+                    .setCancelable(true)
+                    .setTitle("Save Home")
+                    .setPositiveButton("SAVE", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        if(!state_selected.equals("") && !textEditor.getText().toString().equals("")){
+                            Gson gson = new GsonBuilder().create();
+                            JsonArray jsArray = gson.toJsonTree(appliances).getAsJsonArray();
+
+                            ArrayList<Home> homes = new ArrayList<Home>();
+                            homes.add(new Home(textEditor.getText().toString(), String.valueOf(jsArray) , state_selected));
+                            database.saveCustomHome(homes);
+                            database.close();
+
+                            Toast.makeText(context,"Your home configuration has been saved",Toast.LENGTH_SHORT).show();
+                        }else{
+                            Snackbar.make(getWindow().getDecorView(),"Please choose a location and enter a name to save this home configuration", Snackbar.LENGTH_SHORT).show();
+                        }
+
+                        }
+                    })
+                    .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    });
+            AlertDialog alertDialog = editorBuilder.create();
+            alertDialog.show();
         }
 
         return super.onOptionsItemSelected(item);
