@@ -129,7 +129,6 @@ public class Details extends AppCompatActivity {
         if (mChartView != null) {
             mChartView.repaint();
         }
-
         clickEvents();
     }
 
