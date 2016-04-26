@@ -3,15 +3,17 @@ package adapters;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -58,9 +60,13 @@ public class RecAdapter extends BottomSheetDialogFragment {
 
         final LinearLayout cost_body = (LinearLayout) v.findViewById(R.id.cost_body);
         final LinearLayout rec_body = (LinearLayout)v.findViewById(R.id.rec_body);
-        Button cost_btn = (Button)v.findViewById(R.id.cost_btn);
-        Button rec_btn = (Button)v.findViewById(R.id.rec_btn);
+        AppCompatButton cost_btn = (AppCompatButton) v.findViewById(R.id.cost_btn);
+        AppCompatButton rec_btn = (AppCompatButton) v.findViewById(R.id.rec_btn);
         cost_body.setVisibility(View.INVISIBLE);
+
+        ColorStateList stateList =  ColorStateList.valueOf(Color.WHITE);
+        cost_btn.setSupportBackgroundTintList(stateList);
+        rec_btn.setSupportBackgroundTintList(stateList);
 
         cost_body.setOnClickListener(new View.OnClickListener() {
             @Override

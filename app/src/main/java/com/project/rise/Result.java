@@ -4,16 +4,18 @@ import android.annotation.TargetApi;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +38,7 @@ public class Result extends AppCompatActivity {
     @InjectView(R.id.bbc) TextView bbc;
     @InjectView(R.id.inv) TextView inv;
     @InjectView(R.id.cont) TextView cont;
-    @InjectView(R.id.recommend_btn) Button recommend_btn;
+    @InjectView(R.id.recommend_btn) AppCompatButton recommend_btn;
     Double energy_to_be_produced, pv_capacity, battery_bank_capacity, controller_current;
     int system_voltage;
 
@@ -50,6 +52,9 @@ public class Result extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Results");
         int load_Demand = getIntent().getExtras().getInt("load_Demand");
+
+        ColorStateList stateList =  ColorStateList.valueOf(Color.WHITE);
+        recommend_btn.setSupportBackgroundTintList(stateList);
 
         energy_to_be_produced = (load_Demand * 1.5);
         pv_capacity = (energy_to_be_produced / 5);

@@ -5,18 +5,19 @@ import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewTreeObserver;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -49,7 +50,7 @@ public class Details extends AppCompatActivity {
     ArrayList<Appliance> appliances = new ArrayList<>();
     @InjectView(R.id.daily_demand_value) TextView daily_demand_value;
     @InjectView(R.id.chart_cover) LinearLayout chart_cover;
-    @InjectView(R.id.calc_btn) Button calc_btn;
+    @InjectView(R.id.calc_btn) AppCompatButton calc_btn;
     @InjectView(R.id.location) TextView location;
     String state_selected = "";
     int load_demand;
@@ -75,6 +76,9 @@ public class Details extends AppCompatActivity {
         String[] NAME_LIST = new String[appliances.size()];
         double[] VALUES = new double[appliances.size()];
         int[] COLORS = new int[appliances.size()];
+
+        ColorStateList stateList =  ColorStateList.valueOf(Color.WHITE);
+        calc_btn.setSupportBackgroundTintList(stateList);
 
         location.setText(state_selected+" state");
 
