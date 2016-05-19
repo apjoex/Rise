@@ -2,9 +2,12 @@ package com.project.rise;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -32,11 +35,12 @@ import butterknife.InjectView;
 import models.Appliance;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class CustomHome extends AppCompatActivity {
+public class Appliances extends AppCompatActivity {
 
     Context context;
     @InjectView(R.id.appliance_list) RecyclerView appliance_list;
     @InjectView(R.id.cover) RelativeLayout cover;
+    @InjectView(R.id.no_list) RelativeLayout no_list;
     @InjectView(R.id.back_view) CoordinatorLayout back_view;
     @InjectView(R.id.add_appliance) FloatingActionButton add_appliance;
     ArrayList<Appliance> appliances = new ArrayList<>();
@@ -52,7 +56,9 @@ public class CustomHome extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Appliances");
 
+        checkList();
         add_appliance.setVisibility(View.INVISIBLE);
+
 
         ViewTreeObserver vto = cover.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -107,8 +113,7 @@ public class CustomHome extends AppCompatActivity {
         appliance_list.setLayoutManager(layoutManager);
         appliance_list.setAdapter(adapter);
 
-        addAppliance();
-
+//        addAppliance("ENTER APPLIANCE NAME", "0");
 //        appliance_list.setAdapter(new SlideInBottomAnimationAdapter(listingsAdapter));
 //        View footerView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.footer_layout, null, false);
 //        appliance_list.addFooterView(footerView);
@@ -117,7 +122,81 @@ public class CustomHome extends AppCompatActivity {
         add_appliance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addAppliance();
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                LayoutInflater inflater = getLayoutInflater();
+                View applianceView = inflater.inflate(R.layout.common_appliances, null);
+                builder.setView(applianceView);
+                builder.setTitle("Add Appliance");
+
+                Button new_item = (Button)applianceView.findViewById(R.id.new_item);
+                RelativeLayout tv_item = (RelativeLayout) applianceView.findViewById(R.id.tv_item);
+                RelativeLayout light_item = (RelativeLayout) applianceView.findViewById(R.id.light_item);
+                RelativeLayout fan_item = (RelativeLayout) applianceView.findViewById(R.id.fan_item);
+                RelativeLayout fridge_item = (RelativeLayout) applianceView.findViewById(R.id.fridge_item);
+                RelativeLayout sound_item = (RelativeLayout) applianceView.findViewById(R.id.sound_item);
+                RelativeLayout gas_item = (RelativeLayout) applianceView.findViewById(R.id.gas_item);
+
+                final Dialog dialog = builder.create();
+
+                new_item.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                        addAppliance("ENTER APPLIANCE NAME", "0");
+                    }
+                });
+
+                tv_item.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                        addAppliance("TELEVISION", "150");
+                    }
+                });
+
+                light_item.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                        addAppliance("LIGHT BULB", "15");
+                    }
+                });
+
+                fan_item.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                        addAppliance("FAN", "85");
+                    }
+                });
+
+                fridge_item.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                        addAppliance("REFRIGERATOR", "150");
+                    }
+                });
+
+                sound_item.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                        addAppliance("HOME THEATRE", "150");
+                    }
+                });
+
+                gas_item.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                        addAppliance("GAS COOKER", "150");
+                    }
+                });
+
+
+                dialog.show();
+
             }
         });
 
@@ -139,9 +218,35 @@ public class CustomHome extends AppCompatActivity {
 
     }
 
-    private void addAppliance() {
-        appliances.add(new Appliance("ENTER APPLIANCE NAME", "0", "0", "1"));
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkList();
+        registerReceiver(deleteReceiver, new IntentFilter("LISTENER"));
+    }
+
+    private BroadcastReceiver deleteReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String delete_action = intent.getExtras().getString("delete_action");
+            if (delete_action != null && delete_action.equals("yes")) {
+                checkList();
+            }
+        }
+    };
+
+    private void checkList() {
+        if(appliances.size() == 0){
+            no_list.setVisibility(View.VISIBLE);
+        }else{
+            no_list.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void addAppliance(String name, String watts) {
+        appliances.add(new Appliance(name, "0", watts, "1"));
         adapter.notifyDataSetChanged();
+        checkList();
     }
 
 
@@ -186,7 +291,7 @@ public class CustomHome extends AppCompatActivity {
                 Snackbar.make(back_view,"You are yet to add an appliance.", Snackbar.LENGTH_SHORT).setAction("ADD APPLIANCE", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        addAppliance();
+                        addAppliance("ENTER APPLIANCE NAME","0");
                     }
                 }).show();
             }

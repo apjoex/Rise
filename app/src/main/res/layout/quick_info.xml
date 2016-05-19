@@ -11,7 +11,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="COUNT:\t\t This is the amount of a particular electrical appliance in your home.\n\nAC LOAD WATTAGE:\t\t This is the load rating of a particular electrical appliance in your home. It is usually rated in WATTS (W)\n\nDAILY USAGE HOURS:\t\t This is the number of hours a particular electrical appliance is estimated to be in use per day."
+            android:text="COUNT:\tThis is the amount of a particular electrical appliance in your home.\n\nAC LOAD WATTAGE:\tThis is the load rating of a particular electrical appliance in your home. It is usually rated in WATTS (W)\n\nDAILY USAGE HOURS:\tThis is the number of hours a particular electrical appliance is estimated to be in use per day."
             android:id="@+id/info_text"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"

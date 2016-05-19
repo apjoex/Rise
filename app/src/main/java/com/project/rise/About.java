@@ -9,7 +9,7 @@ import android.support.v7.widget.AppCompatButton;
 import android.view.MenuItem;
 import android.view.View;
 
-import adapters.ModalBottomSheet;
+import fragments.CreditsSheet;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class About extends AppCompatActivity {
@@ -22,7 +22,6 @@ public class About extends AppCompatActivity {
         setContentView(R.layout.activity_about);
         context = this;
 
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("About");
         getSupportActionBar().setElevation(0);
@@ -34,7 +33,7 @@ public class About extends AppCompatActivity {
         credit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ModalBottomSheet modalBottomSheet = new ModalBottomSheet();
+                CreditsSheet modalBottomSheet = new CreditsSheet();
                 modalBottomSheet.show(getSupportFragmentManager(), "bottom sheet");
             }
         });

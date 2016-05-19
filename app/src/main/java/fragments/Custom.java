@@ -16,7 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import com.project.rise.CustomHome;
+import com.project.rise.Appliances;
 import com.project.rise.Details;
 import com.project.rise.R;
 
@@ -99,7 +99,9 @@ public class Custom extends Fragment {
                 Intent intent = new Intent(context, Details.class);
                 intent.putParcelableArrayListExtra("appliances", appliances);
                 intent.putExtra("state", homes.get(i).getLocation());
-                intent.putExtra("state_position", i);
+                intent.putExtra("state_position", getStateNumber(homes.get(i).getLocation()));
+                intent.putExtra("name", homes.get(i).getName());
+                intent.putExtra("saved_home", "yes");
                 startActivity(intent);
             }
         });
@@ -109,7 +111,7 @@ public class Custom extends Fragment {
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, long l) {
                 AlertDialog.Builder deleteBuilder = new AlertDialog.Builder(getActivity());
                 deleteBuilder.setTitle("Delete")
-                        .setMessage("Are you sure you want to delete the home configuration for "+homes.get(position).getName())
+                        .setMessage("Are you sure you want to delete the home configuration for "+homes.get(position).getName()+"?")
                         .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -130,11 +132,130 @@ public class Custom extends Fragment {
         });
     }
 
+    private int getStateNumber(String location) {
+        int number = 0;
+        switch (location){
+            case "Abia":
+                number = 0;
+                break;
+            case "Adamawa":
+                number = 1;
+                break;
+            case "Akwa Ibom":
+                number = 2;
+                break;
+            case "Anambra":
+                number = 3;
+                break;
+            case "Bauchi":
+                number = 4;
+                break;
+            case "Bayelsa":
+                number = 5;
+                break;
+            case "Benue":
+                number = 6;
+                break;
+            case "Borno":
+                number = 7;
+                break;
+            case "Cross River":
+                number = 8;
+                break;
+            case "Delta":
+                number = 9;
+                break;
+            case "Ebonyi":
+                number = 10;
+                break;
+            case "Edo":
+                number = 11;
+                break;
+            case "Ekiti":
+                number = 12;
+                break;
+            case "Enugu":
+                number = 13;
+                break;
+            case "FCT":
+                number = 14;
+                break;
+            case "Gombe":
+                number = 15;
+                break;
+            case "Imo":
+                number = 16;
+                break;
+            case "Jigawa":
+                number = 17;
+                break;
+            case "Kaduna":
+                number = 18;
+                break;
+            case "Kano":
+                number = 19;
+                break;
+            case "Katsina":
+                number = 20;
+                break;
+            case "Kebbi":
+                number = 21;
+                break;
+            case "Kogi":
+                number = 22;
+                break;
+            case "Kwara":
+                number = 23;
+                break;
+            case "Lagos":
+                number = 24;
+                break;
+            case "Nasarawa":
+                number = 25;
+                break;
+            case "Niger":
+                number = 26;
+                break;
+            case "Ogun":
+                number = 27;
+                break;
+            case "Ondo":
+                number = 28;
+                break;
+            case "Osun":
+                number = 29;
+                break;
+            case "Oyo":
+                number = 30;
+                break;
+            case "Plateau":
+                number = 31;
+                break;
+            case "Rivers":
+                number = 32;
+                break;
+            case "Sokoto":
+                number = 33;
+                break;
+            case "Taraba":
+                number = 34;
+                break;
+            case "Yobe":
+                number = 35;
+                break;
+            case "Zamfara":
+                number = 36;
+                break;
+        }
+
+        return number;
+    }
+
     private void clickEvents() {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, CustomHome.class);
+                Intent intent = new Intent(context, Appliances.class);
                 startActivity(intent);
             }
         });

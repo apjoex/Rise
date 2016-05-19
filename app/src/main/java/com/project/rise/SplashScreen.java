@@ -16,7 +16,6 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class SplashScreen extends AppCompatActivity {
-
     Context context;
     @InjectView(R.id.app_label) TextView label;
     @InjectView(R.id.app_text) TextView text;
@@ -39,7 +38,7 @@ public class SplashScreen extends AppCompatActivity {
         more_info.setVisibility(View.VISIBLE);
 
         label.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/powerless.ttf"));
-        text.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/Gotham-Medium.otf"));
+        text.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Light.otf"));
 
 
         new Handler().postDelayed(new Runnable() {

@@ -2,14 +2,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="8dp"
+    android:background="#fff">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbarThumbVertical="@android:color/white"
+        android:scrollbarSize="3dp"
+        android:scrollbarDefaultDelayBeforeFade="@android:integer/config_shortAnimTime"
+        android:background="#fff">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:id="@+id/rec_body">
+        android:id="@+id/rec_body"
+        android:background="#FFf">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -106,11 +115,12 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="5dp" />
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Volatage Controller"
+        android:text="Voltage Controller"
         android:id="@+id/textView18"
         android:textColor="@color/colorPrimary" />
 
@@ -187,7 +197,20 @@
         android:id="@+id/array_modules"
         android:layout_marginLeft="5dp" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="ADVANCED DETAILS"
+            android:id="@+id/recommend_btn"
+            android:layout_gravity="center_horizontal"
+            android:backgroundTint="#fff"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginTop="16dp" />
+
     </LinearLayout>
+
+    </ScrollView>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -227,13 +250,88 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="\u2248 \u20A6 500 000"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Battery"
             android:id="@+id/textView29"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="50dp"
-            android:textSize="30dp"
-            android:textStyle="bold" />
+            android:textColor="@color/colorPrimary"
+            android:layout_marginLeft="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Calculating..."
+            android:id="@+id/battery_cost"
+            android:layout_margin="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Inverter"
+            android:id="@+id/textView31"
+            android:textColor="@color/colorPrimary"
+            android:layout_margin="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Calculating..."
+            android:id="@+id/inverter_cost"
+            android:layout_margin="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Voltage controller"
+            android:id="@+id/textView33"
+            android:layout_margin="5dp"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Calculating..."
+            android:id="@+id/controller_cost"
+            android:layout_margin="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Solar Array"
+            android:id="@+id/textView35"
+            android:layout_margin="5dp"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Calculating..."
+            android:id="@+id/array_cost"
+            android:layout_margin="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Total"
+            android:id="@+id/textView37"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Calculating..."
+            android:id="@+id/total_cost"
+            android:layout_margin="5dp" />
 
     </LinearLayout>
 

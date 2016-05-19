@@ -157,16 +157,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:text="SEE RECOMMENDATIONS"
-        android:id="@+id/recommend_btn"
-        android:layout_gravity="center_horizontal"
-        android:backgroundTint="#fff"
-        android:textColor="@color/colorPrimary"
-        android:layout_marginTop="16dp" />
-
     </LinearLayout>
 
     </ScrollView>

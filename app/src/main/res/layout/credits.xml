@@ -28,7 +28,6 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            fontPath="fonts/Gotham-Medium.otf"
             android:textColor="#323232"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"

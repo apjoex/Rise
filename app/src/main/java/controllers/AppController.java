@@ -22,7 +22,7 @@ public class AppController extends Application {
         super.onCreate();
         mInstance = this;
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/Gotham-Medium.otf")
+                .setDefaultFontPath("fonts/Montserrat-Light.otf")
                 .setFontAttrId(R.attr.fontPath)
                 .build());
     }

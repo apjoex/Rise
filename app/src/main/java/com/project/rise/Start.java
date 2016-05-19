@@ -94,20 +94,23 @@ public class Start extends AppCompatActivity {
         }
 
         if(id == R.id.action_tips){
-            final CharSequence[] messages = {"This is the first message","This is the second message","This is the third message"};
+            final CharSequence[] messages = {
+                    "Turn off all lights, appliances and electronics not in use.",
+                    "Change to new and improved energy-efficient light bulbs.",
+                    "Remember to unplug mobile phones, laptops, tablets when they are fully charged."
+            };
             final int min = 0;
             final int max = 2;
             final Random r = new Random();
 
 
             final AlertDialog.Builder tipsBuilder = new AlertDialog.Builder(context);
-            tipsBuilder.setTitle("Tips")
+            tipsBuilder.setTitle("Tip")
                     .setMessage(messages[r.nextInt(max - min + 1) + min])
-                    .setPositiveButton("NEXT TIP", new DialogInterface.OnClickListener() {
+                    .setPositiveButton("OKAY, THANKS", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            tipsBuilder.setMessage(messages[r.nextInt(max - min + 1) + min])
-                                    .create().show();
+                           dialogInterface.dismiss();
                         }
                     })
                     .create().show();
@@ -134,7 +137,7 @@ public class Start extends AppCompatActivity {
 //
 ////            behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 //
-//            ModalBottomSheet modalBottomSheet = new ModalBottomSheet();
+//            CreditsSheet modalBottomSheet = new CreditsSheet();
 //            modalBottomSheet.show(getSupportFragmentManager(), "bottom sheet");
 //        }
 
@@ -175,7 +178,7 @@ public class Start extends AppCompatActivity {
             for (int i = 0; i < tabChildsCount; i++) {
                 View tabViewChild = vgTab.getChildAt(i);
                 if (tabViewChild instanceof TextView) {
-                    ((TextView) tabViewChild).setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Gotham-Medium.otf"));
+                    ((TextView) tabViewChild).setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Montserrat-Light.otf"));
                 }
             }
         }

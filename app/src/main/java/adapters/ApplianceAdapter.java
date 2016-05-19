@@ -2,6 +2,7 @@ package adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -273,6 +274,9 @@ public class ApplianceAdapter extends  RecyclerView.Adapter<ApplianceAdapter.Vie
                         if(id == R.id.action_delete){
                             appliances.remove(appliances.get(position));
                             notifyDataSetChanged();
+                            Intent intent = new Intent("LISTENER");
+                            intent.putExtra("delete_action", "yes");
+                            context.sendBroadcast(intent);
                         }
                         return false;
                     }

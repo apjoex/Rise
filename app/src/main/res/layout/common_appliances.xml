@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_marginTop="15dp"
+        android:id="@+id/tv_item">
+
+        <RelativeLayout
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/circle_back"
+            android:id="@+id/tv_layout">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/television"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Television"
+            android:id="@+id/tv_text"
+            android:gravity="center_vertical"
+            android:textColor="#000"
+            android:layout_toRightOf="@+id/tv_layout"
+            android:layout_toEndOf="@+id/tv_layout"
+            android:layout_marginLeft="5dp"
+            android:layout_alignTop="@+id/tv_layout"
+            android:layout_alignBottom="@+id/tv_layout" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="16dp"
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:paddingRight="16dp"
+        android:id="@+id/light_item">
+
+        <RelativeLayout
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/circle_back"
+            android:id="@+id/relativeLayout6">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/lightbulb"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Light bulb"
+            android:id="@+id/lights_text"
+            android:layout_alignTop="@+id/relativeLayout6"
+            android:layout_toRightOf="@+id/relativeLayout6"
+            android:layout_toEndOf="@+id/relativeLayout6"
+            android:layout_alignBottom="@+id/relativeLayout6"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:textColor="#000" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="16dp"
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:paddingRight="16dp"
+        android:id="@+id/fan_item">
+
+        <RelativeLayout
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/circle_back"
+            android:id="@+id/relativeLayout3">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/fan"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Fan"
+            android:id="@+id/fan_text"
+            android:layout_alignTop="@+id/relativeLayout3"
+            android:layout_toRightOf="@+id/relativeLayout3"
+            android:layout_toEndOf="@+id/relativeLayout3"
+            android:layout_alignBottom="@+id/relativeLayout3"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:textColor="#000" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="16dp"
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:paddingRight="16dp"
+        android:id="@+id/fridge_item">
+
+        <RelativeLayout
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/circle_back"
+            android:id="@+id/relativeLayout2">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/fridge"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Refrigerator"
+            android:id="@+id/fridge_text"
+            android:layout_alignTop="@+id/relativeLayout2"
+            android:layout_toRightOf="@+id/relativeLayout2"
+            android:layout_toEndOf="@+id/relativeLayout2"
+            android:layout_alignBottom="@+id/relativeLayout2"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:textColor="#000" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="16dp"
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:paddingRight="16dp"
+        android:id="@+id/sound_item">
+
+        <RelativeLayout
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/circle_back"
+            android:id="@+id/relativeLayout4">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/speaker"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Home Theatre"
+            android:id="@+id/sound_text"
+            android:layout_alignTop="@+id/relativeLayout4"
+            android:layout_toRightOf="@+id/relativeLayout4"
+            android:layout_toEndOf="@+id/relativeLayout4"
+            android:layout_alignBottom="@+id/relativeLayout4"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:textColor="#000" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="16dp"
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:paddingRight="16dp"
+        android:id="@+id/gas_item">
+
+        <RelativeLayout
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/circle_back"
+            android:id="@+id/relativeLayout5">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/stove"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Gas cooker"
+            android:id="@+id/stove_text"
+            android:layout_alignTop="@+id/relativeLayout5"
+            android:layout_toRightOf="@+id/relativeLayout5"
+            android:layout_toEndOf="@+id/relativeLayout5"
+            android:layout_alignBottom="@+id/relativeLayout5"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:textColor="#000" />
+
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="NEW APPLIANCE"
+        style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+        android:id="@+id/new_item"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginBottom="5dp" />
+
+    </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

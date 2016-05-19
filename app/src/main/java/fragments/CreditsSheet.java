@@ -1,4 +1,4 @@
-package adapters;
+package fragments;
 
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialogFragment;
@@ -11,7 +11,7 @@ import com.project.rise.R;
 /**
  * Created by AKINDE-PETERS on 3/11/2016.
  */
-public class ModalBottomSheet extends BottomSheetDialogFragment {
+public class CreditsSheet extends BottomSheetDialogFragment {
 
     static BottomSheetDialogFragment newInstance() {
         return new BottomSheetDialogFragment();

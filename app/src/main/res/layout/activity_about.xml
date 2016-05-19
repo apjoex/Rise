@@ -28,7 +28,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="RISE helps design and size a suitable Solar Power system for residential use in Nigeria"
+            android:text="RISE helps design and size suitable Solar Power systems for residential use in Nigeria"
             android:id="@+id/textView27"
             android:layout_below="@+id/imageView4"
             android:layout_alignLeft="@+id/imageView4"
@@ -49,7 +49,7 @@
             android:layout_alignStart="@+id/textView27"
             android:textColor="#fff" />
 
-        <Button
+        <android.support.v7.widget.AppCompatButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CREDITS"

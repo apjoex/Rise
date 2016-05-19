@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -46,21 +47,23 @@ import models.Home;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class Details extends AppCompatActivity {
+
     Context context;
     ArrayList<Appliance> appliances = new ArrayList<>();
     @InjectView(R.id.daily_demand_value) TextView daily_demand_value;
     @InjectView(R.id.chart_cover) LinearLayout chart_cover;
+    @InjectView(R.id.back_body) CoordinatorLayout body;
     @InjectView(R.id.calc_btn) AppCompatButton calc_btn;
     @InjectView(R.id.location) TextView location;
     String state_selected = "";
+    String home_name = "";
+    String saved_home = "";
+    int state_postion;
     int load_demand;
     Database database;
-
-
     private CategorySeries mSeries = new CategorySeries("");
     private DefaultRenderer mRenderer = new DefaultRenderer();
     private GraphicalView mChartView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,17 +73,31 @@ public class Details extends AppCompatActivity {
         ButterKnife.inject(this);
         database = new Database(context);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Home Details");
+        getSupportActionBar().setElevation(0);
+
+
         appliances = (ArrayList<Appliance>) getIntent().getSerializableExtra("appliances");
         state_selected = getIntent().getStringExtra("state");
+        state_postion = getIntent().getIntExtra("state_position",50);
+        home_name = getIntent().getStringExtra("name");
+        saved_home = getIntent().getStringExtra("saved_home");
+
+        if(home_name != null && !home_name.equals("")){
+            getSupportActionBar().setTitle(home_name);
+        }else{
+            getSupportActionBar().setTitle("Home Details");
+        }
+
         String[] NAME_LIST = new String[appliances.size()];
         double[] VALUES = new double[appliances.size()];
         int[] COLORS = new int[appliances.size()];
 
-        ColorStateList stateList =  ColorStateList.valueOf(Color.WHITE);
+//        ColorStateList stateList =  ColorStateList.valueOf(Color.WHITE);
+        ColorStateList stateList =  ColorStateList.valueOf(Color.rgb(250,250,250));
         calc_btn.setSupportBackgroundTintList(stateList);
 
         location.setText(state_selected+" state");
+        Toast.makeText(Details.this, "The selected state is in number "+state_postion, Toast.LENGTH_SHORT).show();
 
         load_demand = 0;
 
@@ -89,7 +106,7 @@ public class Details extends AppCompatActivity {
             int load = Integer.valueOf(appliances.get(i).getWattage());
             int duration = Integer.valueOf(appliances.get(i).getDuration());
 
-            NAME_LIST[i] = appliances.get(i).getName();
+            NAME_LIST[i] = appliances.get(i).getName().toUpperCase();
             VALUES[i] = (count * load * duration);
 
             Random rnd = new Random();
@@ -146,14 +163,12 @@ public class Details extends AppCompatActivity {
 //                            }
 //                        })
 //                        .create().show();
-
                 Intent intent = new Intent(context, Result.class);
                 intent.putExtra("load_Demand",load_demand);
                 startActivity(intent);
             }
         });
     }
-
 
     @Override
     protected void onResume() {
@@ -169,7 +184,7 @@ public class Details extends AppCompatActivity {
                     SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
 
                     if (seriesSelection != null) {
-                        Toast.makeText(Details.this, ""+appliances.get(seriesSelection.getPointIndex()).getName()+ " ("+seriesSelection.getValue()+" Wh)", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(body, ""+appliances.get(seriesSelection.getPointIndex()).getName()+ " ("+seriesSelection.getValue()+" Wh)", Snackbar.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -245,9 +260,14 @@ public class Details extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_details, menu);
+        if (saved_home!= null && !saved_home.equals("")) {
+            menu.getItem(0).setVisible(false);
+        }else{
+            menu.getItem(0).setVisible(true);
+        }
+
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -292,9 +312,10 @@ public class Details extends AppCompatActivity {
                             database.saveCustomHome(homes);
                             database.close();
 
-                            Toast.makeText(context,"Your home configuration has been saved",Toast.LENGTH_SHORT).show();
+                            Snackbar.make(body,"Your home configuration has been saved",Snackbar.LENGTH_SHORT).show();
+                            onResume();
                         }else{
-                            Snackbar.make(getWindow().getDecorView(),"Please choose a location and enter a name to save this home configuration", Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(body,"Please choose a location and enter a name to save this home configuration", Snackbar.LENGTH_SHORT).show();
                         }
 
                         }
