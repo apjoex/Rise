@@ -93,8 +93,9 @@ public class Details extends AppCompatActivity {
         int[] COLORS = new int[appliances.size()];
 
 //        ColorStateList stateList =  ColorStateList.valueOf(Color.WHITE);
-        ColorStateList stateList =  ColorStateList.valueOf(Color.rgb(250,250,250));
+        ColorStateList stateList =  ColorStateList.valueOf(Color.rgb(237,50,55));
         calc_btn.setSupportBackgroundTintList(stateList);
+        calc_btn.setTextColor(Color.WHITE);
 
         location.setText(state_selected+" state");
         Toast.makeText(Details.this, "The selected state is in number "+state_postion, Toast.LENGTH_SHORT).show();

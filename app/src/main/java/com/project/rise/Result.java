@@ -17,20 +17,21 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -48,7 +49,7 @@ public class Result extends AppCompatActivity {
 
     Context context;
 
-    Button recommend_btn;
+    AppCompatButton recommend_btn;
     @InjectView(R.id.battery_cost) TextView battery_cost;
     @InjectView(R.id.inverter_cost) TextView inverter_cost;
     @InjectView(R.id.controller_cost) TextView controller_cost;
@@ -81,13 +82,14 @@ public class Result extends AppCompatActivity {
         setContentView(R.layout.recommendation);
         context = this;
         ButterKnife.inject(this);
-        Firebase.setAndroidContext(context);
+//        Firebase.setAndroidContext(context);
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
 
-        recommend_btn = (Button)findViewById(R.id.recommend_btn);
+        recommend_btn = (AppCompatButton)findViewById(R.id.recommend_btn);
 
-        Firebase FirebaseDatabase = new Firebase("https://rise.firebaseio.com/");
+        DatabaseReference db =  FirebaseDatabase.getInstance().getReference();
 
         load_Demand = getIntent().getExtras().getInt("load_Demand");
 
@@ -108,21 +110,14 @@ public class Result extends AppCompatActivity {
         controller_current = pv_capacity / system_voltage;
 
         final LinearLayout cost_body = (LinearLayout)findViewById(R.id.cost_body);
-        Button cost_btn = (Button) findViewById(R.id.cost_btn);
-        Button rec_btn = (Button) findViewById(R.id.rec_btn);
+        AppCompatButton cost_btn = (AppCompatButton) findViewById(R.id.cost_btn);
+        AppCompatButton rec_btn = (AppCompatButton) findViewById(R.id.rec_btn);
         cost_body.setVisibility(View.INVISIBLE);
 
-        ColorStateList stateList =  ColorStateList.valueOf(Color.rgb(250,250,250));
-//        recommend_btn.setSupportBackgroundTintList(stateList);
-//        cost_btn.setSupportBackgroundTintList(stateList);
-//        rec_btn.setSupportBackgroundTintList(stateList);
-
-        cost_body.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+        ColorStateList stateList =  ColorStateList.valueOf(Color.rgb(237,50,55));
+        recommend_btn.setSupportBackgroundTintList(stateList);
+        cost_btn.setSupportBackgroundTintList(stateList);
+        rec_btn.setSupportBackgroundTintList(stateList);
 
         cost_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -257,44 +252,49 @@ public class Result extends AppCompatActivity {
 
         final int finalNumber_of_batt = number_of_batt;
 
-        FirebaseDatabase.child("prices/battery").addValueEventListener(new ValueEventListener() {
+        db.child("prices/battery").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 battery_amount = Integer.valueOf(snapshot.getValue().toString()) * finalNumber_of_batt;
                 battery_cost.setText("≈ ₦ "+ NumberFormat.getNumberInstance(Locale.US).format(battery_amount));
                 calculateTotal();
             }
-            @Override public void onCancelled(FirebaseError error) {
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
                 Toast.makeText(Result.this, "Nothing for Firebase o", Toast.LENGTH_SHORT).show();
             }
         });
 
-        FirebaseDatabase.child("prices/controller").addValueEventListener(new ValueEventListener() {
+        db.child("prices/controller").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 controller_amount = Integer.valueOf(snapshot.getValue().toString()) * roundUpnew(roundUp(controller_current),60);
                 controller_cost.setText("≈ ₦ "+NumberFormat.getNumberInstance(Locale.US).format(controller_amount));
                 calculateTotal();
             }
-            @Override public void onCancelled(FirebaseError error) {
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
                 Toast.makeText(Result.this, "Nothing for Firebase o", Toast.LENGTH_SHORT).show();
             }
         });
 
-        FirebaseDatabase.child("prices/inverter1").addValueEventListener(new ValueEventListener() {
+        db.child("prices/inverter1").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 inverter_amount =  Integer.valueOf(snapshot.getValue().toString());
                 inverter_cost.setText("≈ ₦ "+NumberFormat.getNumberInstance(Locale.US).format(inverter_amount));
                 calculateTotal();
             }
-            @Override public void onCancelled(FirebaseError error) {
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
                 Toast.makeText(Result.this, "Nothing for Firebase o", Toast.LENGTH_SHORT).show();
             }
         });
 
-
-        FirebaseDatabase.child("prices/solar array").addValueEventListener(new ValueEventListener() {
+        db.child("prices/solar array").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 array_amount =  Integer.valueOf(snapshot.getValue().toString()) * modules_no;
@@ -302,13 +302,12 @@ public class Result extends AppCompatActivity {
                 calculateTotal();
             }
 
-
-            @Override public void onCancelled(FirebaseError error) {
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
                 Toast.makeText(Result.this, "Nothing for Firebase o", Toast.LENGTH_SHORT).show();
             }
+
         });
-
-
 
     }
 
@@ -341,7 +340,6 @@ public class Result extends AppCompatActivity {
             }
         });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

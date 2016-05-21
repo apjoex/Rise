@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import fragments.CreditsSheet;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -15,6 +16,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class About extends AppCompatActivity {
 
     Context context;
+    TextView version;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,10 @@ public class About extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("About");
         getSupportActionBar().setElevation(0);
+
+        version = (TextView)findViewById(R.id.version_placeholder);
+
+        version.setText("Version: "+BuildConfig.VERSION_NAME);
 
         AppCompatButton credit_btn = (AppCompatButton)findViewById(R.id.credit_btn);
         ColorStateList stateList =  ColorStateList.valueOf(Color.WHITE);

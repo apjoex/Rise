@@ -25,7 +25,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/body"
-        android:background="#fff">
+        android:background="#ffffff">
 
         <ImageView
             android:layout_width="150dp"
