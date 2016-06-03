@@ -23,7 +23,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Developed By: \nName: Akinde-peters Joseph \nMatric number: 110408007 \nComputer Engineering,\nUniversity of Lagos. \n\n\nSupervised By: \nName: Babatunde O.M \nElectrical\\Electronics Engineering,\nUniversity of Lagos"
+            android:text="Developed By: \nAkinde-peters Joseph 'Dare\nMatric number: 110408007 \nComputer Engineering,\nUniversity of Lagos. \n\n\nSupervised By: \nBabatunde O.M \nElectrical/Electronics Engineering,\nUniversity of Lagos."
             android:id="@+id/credit_text"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"

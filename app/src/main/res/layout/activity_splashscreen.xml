@@ -48,14 +48,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="RISE helps integrate Solar Energy into your household"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="RISE helps integrate Solar Energy into your house"
                 android:id="@+id/app_text"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
                 android:gravity="center_horizontal"
                 android:padding="10dp"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="@color/colorPrimary"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
 
         </RelativeLayout>
     </RelativeLayout>

@@ -49,7 +49,9 @@ public class Result extends AppCompatActivity {
 
     Context context;
 
-    AppCompatButton recommend_btn;
+    @InjectView(R.id.recommend_btn) AppCompatButton recommend_btn;
+    @InjectView(R.id.cost_btn) AppCompatButton cost_btn;
+    @InjectView(R.id.rec_btn) AppCompatButton rec_btn;
     @InjectView(R.id.battery_cost) TextView battery_cost;
     @InjectView(R.id.inverter_cost) TextView inverter_cost;
     @InjectView(R.id.controller_cost) TextView controller_cost;
@@ -83,11 +85,9 @@ public class Result extends AppCompatActivity {
         context = this;
         ButterKnife.inject(this);
 //        Firebase.setAndroidContext(context);
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+//        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
-
-        recommend_btn = (AppCompatButton)findViewById(R.id.recommend_btn);
 
         DatabaseReference db =  FirebaseDatabase.getInstance().getReference();
 
@@ -110,8 +110,7 @@ public class Result extends AppCompatActivity {
         controller_current = pv_capacity / system_voltage;
 
         final LinearLayout cost_body = (LinearLayout)findViewById(R.id.cost_body);
-        AppCompatButton cost_btn = (AppCompatButton) findViewById(R.id.cost_btn);
-        AppCompatButton rec_btn = (AppCompatButton) findViewById(R.id.rec_btn);
+
         cost_body.setVisibility(View.INVISIBLE);
 
         ColorStateList stateList =  ColorStateList.valueOf(Color.rgb(237,50,55));

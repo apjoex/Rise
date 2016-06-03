@@ -45,7 +45,6 @@ public class Appliances extends AppCompatActivity {
     @InjectView(R.id.add_appliance) FloatingActionButton add_appliance;
     ArrayList<Appliance> appliances = new ArrayList<>();
     ApplianceAdapter adapter;
-    Button add;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,9 +83,9 @@ public class Appliances extends AppCompatActivity {
                     add_appliance.show();
                 }
 
-                if (anim != null) {
-//                    anim.setDuration(300);
-                }
+//                if (anim != null) {
+////                    anim.setDuration(300);
+//                }
 
                 if (anim != null) {
                     anim.addListener(new AnimatorListenerAdapter() {
@@ -134,7 +133,8 @@ public class Appliances extends AppCompatActivity {
                 RelativeLayout fan_item = (RelativeLayout) applianceView.findViewById(R.id.fan_item);
                 RelativeLayout fridge_item = (RelativeLayout) applianceView.findViewById(R.id.fridge_item);
                 RelativeLayout sound_item = (RelativeLayout) applianceView.findViewById(R.id.sound_item);
-                RelativeLayout gas_item = (RelativeLayout) applianceView.findViewById(R.id.gas_item);
+                RelativeLayout ac_item = (RelativeLayout) applianceView.findViewById(R.id.ac_item);
+                RelativeLayout iron_item = (RelativeLayout) applianceView.findViewById(R.id.iron_item);
 
                 final Dialog dialog = builder.create();
 
@@ -186,11 +186,19 @@ public class Appliances extends AppCompatActivity {
                     }
                 });
 
-                gas_item.setOnClickListener(new View.OnClickListener() {
+                ac_item.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         dialog.dismiss();
-                        addAppliance("GAS COOKER", "150");
+                        addAppliance("AIR CONDITIONER", "764");
+                    }
+                });
+
+                iron_item.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                        addAppliance("PRESSING IRON", "1000");
                     }
                 });
 

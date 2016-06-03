@@ -231,7 +231,7 @@
         android:clickable="true"
         android:background="?android:attr/selectableItemBackground"
         android:paddingRight="16dp"
-        android:id="@+id/gas_item">
+        android:id="@+id/ac_item">
 
         <RelativeLayout
             android:layout_width="35dp"
@@ -243,7 +243,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/stove"
+                android:src="@drawable/ac"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true" />
 
@@ -253,8 +253,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Gas cooker"
-            android:id="@+id/stove_text"
+            android:text="Air conditioner"
+            android:id="@+id/ac_text"
             android:layout_alignTop="@+id/relativeLayout5"
             android:layout_toRightOf="@+id/relativeLayout5"
             android:layout_toEndOf="@+id/relativeLayout5"
@@ -265,6 +265,46 @@
 
     </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="16dp"
+            android:clickable="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:paddingRight="16dp"
+            android:id="@+id/iron_item">
+
+            <RelativeLayout
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/circle_back"
+                android:id="@+id/relativeLayout8">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/iron"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Pressing Iron"
+                android:id="@+id/iron_text"
+                android:gravity="center_vertical"
+                android:textColor="#000"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/relativeLayout8"
+                android:layout_toEndOf="@+id/relativeLayout8"
+                android:layout_marginLeft="5dp" />
+
+        </RelativeLayout>
     <Button
         android:layout_width="match_parent"
         android:layout_height="50dp"

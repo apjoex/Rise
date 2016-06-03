@@ -22,15 +22,15 @@ public class About extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-        context = this;
 
+        context = this;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("About");
         getSupportActionBar().setElevation(0);
 
         version = (TextView)findViewById(R.id.version_placeholder);
 
-        version.setText("Version: "+BuildConfig.VERSION_NAME);
+        version.setText("Version "+BuildConfig.VERSION_NAME);
 
         AppCompatButton credit_btn = (AppCompatButton)findViewById(R.id.credit_btn);
         ColorStateList stateList =  ColorStateList.valueOf(Color.WHITE);

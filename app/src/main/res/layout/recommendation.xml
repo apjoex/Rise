@@ -27,14 +27,15 @@
         <TextView
             android:layout_width="197dp"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Recommendations"
             android:id="@+id/recommend_header"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
             android:layout_toLeftOf="@+id/cost_btn"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:textColor="#000" />
 
         <Button
             android:layout_width="wrap_content"
@@ -227,13 +228,14 @@
             <TextView
                 android:layout_width="197dp"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Cost Estimate"
                 android:id="@+id/cost_header"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_toLeftOf="@+id/rec_btn"
-                android:layout_toStartOf="@+id/rec_btn" />
+                android:layout_toStartOf="@+id/rec_btn"
+                android:textColor="#000" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -244,7 +246,6 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:textColor="#ffffff"
-                android:backgroundTint="#fff"
                 android:textStyle="bold" />
 
         </RelativeLayout>
