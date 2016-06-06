@@ -1,11 +1,15 @@
 package adapters;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
+import android.content.Intent;
+import android.support.v7.widget.PopupMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.project.rise.R;
@@ -44,7 +48,7 @@ public class HomeListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         final ViewHolder viewHolder;
 
         if(view == null){
@@ -53,6 +57,7 @@ public class HomeListAdapter extends BaseAdapter {
 
             view = layoutInflater.inflate(R.layout.customhome_item, null);
 
+            viewHolder.more = (ImageView) view.findViewById(R.id.more);
             viewHolder.home_name = (TextView)view.findViewById(R.id.home_name);
             viewHolder.home_location = (TextView)view.findViewById(R.id.home_location);
 
@@ -64,12 +69,40 @@ public class HomeListAdapter extends BaseAdapter {
         viewHolder.home_name.setText(homes.get(i).getName());
         viewHolder.home_location.setText(homes.get(i).getLocation());
 
+        viewHolder.more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPopUp(view, i);
+            }
+        });
+
 
         return view;
     }
 
+    private void showPopUp(View view, final int position) {
+        PopupMenu popup = new PopupMenu(context, view);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.menu_home_more, popup.getMenu());
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int id = item.getItemId();
+
+                if(id == R.id.action_delete){
+                    Intent intent = new Intent("CUSTOM_HOME_LISTENER");
+                    intent.putExtra("delete_action", "yes");
+                    intent.putExtra("pos", position);
+                    context.sendBroadcast(intent);
+                }
+                return false;
+            }
+        });
+        popup.show();
+    }
+
     class ViewHolder{
         TextView home_name,home_location;
-        CardView view;
+        ImageView more;
     }
 }

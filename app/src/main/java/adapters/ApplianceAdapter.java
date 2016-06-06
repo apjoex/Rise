@@ -112,7 +112,7 @@ public class ApplianceAdapter extends  RecyclerView.Adapter<ApplianceAdapter.Vie
                 linearLayout.addView(aNumberPicker, numPicerParams);
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-                alertDialogBuilder.setTitle("Duration of Use (in hours)");
+                alertDialogBuilder.setTitle("Daily usage hours");
                 alertDialogBuilder.setView(linearLayout);
                 alertDialogBuilder
                         .setCancelable(false)

@@ -8,12 +8,10 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        card_view:cardElevation="4dp"
+        card_view:cardElevation="0dp"
+        card_view:cardCornerRadius="0dp"
         card_view:cardBackgroundColor="#ffffffff"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginTop="6dp"
+        android:stateListAnimator="@anim/raise"
         android:layout_marginBottom="6dp">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -50,6 +48,7 @@
                 android:id="@+id/home_name"
                 android:textStyle="bold"
                 android:layout_alignTop="@+id/relativeLayout"
+                android:layout_toLeftOf="@+id/more"
                 android:layout_toRightOf="@+id/relativeLayout"
                 android:layout_toEndOf="@+id/relativeLayout" />
 
@@ -72,6 +71,15 @@
                 android:layout_toRightOf="@+id/imageView5"
                 android:layout_toEndOf="@+id/imageView5"
                 android:layout_marginLeft="5dp" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:id="@+id/more"
+                android:src="@drawable/ic_more_vert_24dp"
+                android:layout_alignTop="@+id/home_name"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>

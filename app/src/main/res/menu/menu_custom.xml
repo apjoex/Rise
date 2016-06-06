@@ -5,7 +5,7 @@
     <item android:id="@+id/action_info" android:icon="@drawable/info"
         android:title="Info" app:showAsAction="always"/>
 
-    <item android:id="@+id/action_proceed" android:icon="@drawable/ic_forward_24dp"
+    <item android:id="@+id/action_proceed" android:icon="@drawable/ic_arrow_forward_black_24dp"
         android:title="Proceed" app:showAsAction="always"/>
 
 </menu>

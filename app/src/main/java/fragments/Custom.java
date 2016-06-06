@@ -1,8 +1,10 @@
 package fragments;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -76,6 +79,24 @@ public class Custom extends Fragment {
             body.setVisibility(View.VISIBLE);
         }
 
+        home_list.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int newState) {
+                if(newState == SCROLL_STATE_IDLE){
+                    add.show();
+                }
+
+                if(newState == SCROLL_STATE_TOUCH_SCROLL){
+                    add.hide();
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+
+            }
+        });
+
         home_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -106,16 +127,28 @@ public class Custom extends Fragment {
             }
         });
 
-        home_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, long l) {
+
+        context.registerReceiver(deleteReceiver, new IntentFilter("CUSTOM_HOME_LISTENER"));
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        context.unregisterReceiver(deleteReceiver);
+    }
+
+    private BroadcastReceiver deleteReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String delete_action = intent.getExtras().getString("delete_action");
+            final int position = intent.getExtras().getInt("pos");
+            if (delete_action != null && delete_action.equals("yes")) {
                 AlertDialog.Builder deleteBuilder = new AlertDialog.Builder(getActivity());
                 deleteBuilder.setTitle("Delete")
-                        .setMessage("Are you sure you want to delete the home configuration for "+homes.get(position).getName()+"?")
+                        .setMessage("Are you sure?")
                         .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-
                                 database.deleteHome(homes.get(position).getName());
                                 database.close();
                                 onResume();
@@ -127,10 +160,10 @@ public class Custom extends Fragment {
                                 dialogInterface.dismiss();
                             }
                         }).create().show();
-                return true;
+
             }
-        });
-    }
+        }
+    };
 
     private int getStateNumber(String location) {
         int number = 0;
