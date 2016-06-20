@@ -3,6 +3,7 @@ package fragments;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.project.rise.Details;
 import com.project.rise.R;
@@ -26,6 +28,7 @@ public class Preset extends Fragment {
     Context context;
     Button button1, button2, button3;
     Button info1, info2, info3;
+    TextView headerone, headertwo, headerthree;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,14 @@ public class Preset extends Fragment {
         info1 = (Button) v.findViewById(R.id.info1);
         info2 = (Button) v.findViewById(R.id.info2);
         info3 = (Button) v.findViewById(R.id.info3);
+        headerone = (TextView)v.findViewById(R.id.headerone);
+        headertwo = (TextView)v.findViewById(R.id.headertwo);
+        headerthree = (TextView)v.findViewById(R.id.headerthree);
+
+        headerone.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Montserrat-Light.otf"), Typeface.BOLD);
+        headertwo.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Montserrat-Light.otf"), Typeface.BOLD);
+        headerthree.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Montserrat-Light.otf"), Typeface.BOLD);
+
 
         clickEvents();
 

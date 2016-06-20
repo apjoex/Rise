@@ -2,10 +2,7 @@ package adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.PopupMenu;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -72,7 +69,11 @@ public class HomeListAdapter extends BaseAdapter {
         viewHolder.more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPopUp(view, i);
+//                showPopUp(view, i);
+                Intent intent = new Intent("CUSTOM_HOME_LISTENER");
+                intent.putExtra("delete_action", "yes");
+                intent.putExtra("pos", i);
+                context.sendBroadcast(intent);
             }
         });
 
@@ -81,24 +82,21 @@ public class HomeListAdapter extends BaseAdapter {
     }
 
     private void showPopUp(View view, final int position) {
-        PopupMenu popup = new PopupMenu(context, view);
-        MenuInflater inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.menu_home_more, popup.getMenu());
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                int id = item.getItemId();
-
-                if(id == R.id.action_delete){
-                    Intent intent = new Intent("CUSTOM_HOME_LISTENER");
-                    intent.putExtra("delete_action", "yes");
-                    intent.putExtra("pos", position);
-                    context.sendBroadcast(intent);
-                }
-                return false;
-            }
-        });
-        popup.show();
+//        PopupMenu popup = new PopupMenu(context, view);
+//        MenuInflater inflater = popup.getMenuInflater();
+//        inflater.inflate(R.menu.menu_home_more, popup.getMenu());
+//        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                int id = item.getItemId();
+//
+//                if(id == R.id.action_delete){
+//
+//                }
+//                return false;
+//            }
+//        });
+//        popup.show();
     }
 
     class ViewHolder{
