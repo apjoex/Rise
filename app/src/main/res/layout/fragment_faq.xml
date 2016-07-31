@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:padding="8dp"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="What is a Solar power system?"
+        android:id="@+id/textView"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="A solar power system basically converts sunlight into electricity."
+        android:id="@+id/textView2"
+        android:layout_marginBottom="40dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="How much maintenance is required?"
+        android:id="@+id/textView3"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Most solar installations will require little maintenance during the life of the system, and some proactive care may help you maximize the value of your investment. For example, if you live in a dusty environment, periodic washing of the panels may help increase electricity production, and inverters may need replacing, which normally occurs after the 10+ year warranty term."
+        android:id="@+id/textView28"
+        android:layout_marginBottom="40dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="How long do solar systems last?"
+        android:id="@+id/textView32"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="The lifespan of a solar installation depends on the local environment and the durability of the system you purchase. A high quality solar installation can last more than 20 years."
+        android:id="@+id/textView34"
+        android:layout_marginBottom="40dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="How can I find out how many watts my appliances use?"
+        android:id="@+id/textView36"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="The easiest way is to look at a monthly utility bill. This has the amount of kilowatt-hours consumed during the billed month. From there,you can determine how many average kilowatt-hours were used daily.
+\n\nAdditionally, a typical electronic appliance should have an energy rating sticker somewhere on the product."
+        android:id="@+id/textView38" />
+
+
+</LinearLayout>

@@ -18,12 +18,7 @@ public class CreditsSheet extends BottomSheetDialogFragment {
     }
 
     @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        View v = inflater.inflate(
-                R.layout.credits, container, false);
-
-        return v;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.credits, container, false);
     }
 }

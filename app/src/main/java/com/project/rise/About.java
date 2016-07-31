@@ -1,8 +1,10 @@
 package com.project.rise;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
@@ -33,14 +35,27 @@ public class About extends AppCompatActivity {
         version.setText("Version "+BuildConfig.VERSION_NAME);
 
         AppCompatButton credit_btn = (AppCompatButton)findViewById(R.id.credit_btn);
+        AppCompatButton feedback_btn = (AppCompatButton)findViewById(R.id.feedback_btn);
         ColorStateList stateList =  ColorStateList.valueOf(Color.WHITE);
         credit_btn.setSupportBackgroundTintList(stateList);
+        feedback_btn.setSupportBackgroundTintList(stateList);
 
         credit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 CreditsSheet modalBottomSheet = new CreditsSheet();
                 modalBottomSheet.show(getSupportFragmentManager(), "bottom sheet");
+            }
+        });
+
+        feedback_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "apjoex@gmail.com", null));
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback on RISE");
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "");
+                startActivity(Intent.createChooser(emailIntent, "Send feedback"));
             }
         });
     }

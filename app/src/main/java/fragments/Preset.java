@@ -9,6 +9,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -27,13 +30,13 @@ import models.Appliance;
 public class Preset extends Fragment {
     Context context;
     Button button1, button2, button3;
-    Button info1, info2, info3;
     TextView headerone, headertwo, headerthree;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getActivity();
+        setHasOptionsMenu(true);
     }
 
     @Nullable
@@ -43,9 +46,6 @@ public class Preset extends Fragment {
         button1 = (Button) v.findViewById(R.id.button1);
         button2 = (Button) v.findViewById(R.id.button2);
         button3 = (Button) v.findViewById(R.id.button3);
-        info1 = (Button) v.findViewById(R.id.info1);
-        info2 = (Button) v.findViewById(R.id.info2);
-        info3 = (Button) v.findViewById(R.id.info3);
         headerone = (TextView)v.findViewById(R.id.headerone);
         headertwo = (TextView)v.findViewById(R.id.headertwo);
         headerthree = (TextView)v.findViewById(R.id.headerthree);
@@ -53,11 +53,31 @@ public class Preset extends Fragment {
         headerone.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Montserrat-Light.otf"), Typeface.BOLD);
         headertwo.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Montserrat-Light.otf"), Typeface.BOLD);
         headerthree.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Montserrat-Light.otf"), Typeface.BOLD);
+        button1.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Montserrat-Light.otf"), Typeface.BOLD);
+        button2.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Montserrat-Light.otf"), Typeface.BOLD);
+        button3.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Montserrat-Light.otf"), Typeface.BOLD);
+
 
 
         clickEvents();
 
         return v;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_preset, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_info){
+            showAssumptions();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void clickEvents() {
@@ -81,33 +101,11 @@ public class Preset extends Fragment {
                 chooseLocation("three");
             }
         });
-
-        info1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showAssumptions();
-            }
-        });
-
-        info2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showAssumptions();
-            }
-        });
-
-        info3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showAssumptions();
-            }
-        });
     }
 
     private void showAssumptions() {
         AlertDialog.Builder assumptionBuilder = new AlertDialog.Builder(context);
-        assumptionBuilder.setTitle("Info")
-                .setMessage("The following assumptions were made:\n\n" +
+        assumptionBuilder.setMessage("The following assumptions were made:\n\n" +
                         "Television - 150W - 6 hours\n" +
                         "Lighting bulbs - 15W - 6 hours\n" +
                         "Ceiling fans - 85W - 8 hours\n" +
@@ -116,20 +114,14 @@ public class Preset extends Fragment {
                         "Washing machine - 250W - 3 hours\n" +
                         "Pumping machine - 500W - 2 hours\n" +
                         "Air conditioner - 764W - 4 hours\n")
-                .setPositiveButton("GOT IT", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                })
                 .create().show();
 
     }
 
     private void chooseLocation(final String position) {
-        AlertDialog.Builder stateBuilder = new AlertDialog.Builder(context);
+//        AlertDialog.Builder stateBuilder = new AlertDialog.Builder(context);
         final CharSequence[] states = {"Abia","Adamawa","Akwa Ibom","Anambra","Bauchi","Bayelsa","Benue","Borno","Cross River","Delta","Ebonyi","Edo", "Ekiti","Enugu","FCT","Gombe","Imo","Jigawa","Kaduna","Kano","Katsina","Kebbi","Kogi","Kwara","Lagos","Nasarawa","Niger","Ogun","Ondo","Osun","Oyo","Plateau","Rivers","Sokoto","Taraba","Yobe","Zamfara"};
-        stateBuilder.setTitle("Choose Location")
+        AlertDialog dialog = new AlertDialog.Builder(context).setTitle("Choose Location")
                 .setItems(states, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -182,7 +174,9 @@ public class Preset extends Fragment {
 
                     }
                 })
-                .create().show();
+                .create();
+
+        dialog.show();
 
 
     }

@@ -1,8 +1,6 @@
 package com.project.rise;
 
 import android.Manifest;
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -17,12 +15,9 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatButton;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,16 +37,15 @@ import java.util.Locale;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import fragments.AdvancedAdapter;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class Result extends AppCompatActivity {
 
     Context context;
 
-    @InjectView(R.id.recommend_btn) AppCompatButton recommend_btn;
-    @InjectView(R.id.cost_btn) AppCompatButton cost_btn;
-    @InjectView(R.id.rec_btn) AppCompatButton rec_btn;
+//    @InjectView(R.id.recommend_btn) AppCompatButton recommend_btn;
+//    @InjectView(R.id.cost_btn) AppCompatButton cost_btn;
+//    @InjectView(R.id.rec_btn) AppCompatButton rec_btn;
     @InjectView(R.id.battery_cost) TextView battery_cost;
     @InjectView(R.id.inverter_cost) TextView inverter_cost;
     @InjectView(R.id.controller_cost) TextView controller_cost;
@@ -81,7 +75,7 @@ public class Result extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recommendation);
+        setContentView(R.layout.fragment_recommendation);
         context = this;
         ButterKnife.inject(this);
 //        Firebase.setAndroidContext(context);
@@ -114,92 +108,92 @@ public class Result extends AppCompatActivity {
         cost_body.setVisibility(View.INVISIBLE);
 
         ColorStateList stateList =  ColorStateList.valueOf(Color.rgb(237,50,55));
-        recommend_btn.setSupportBackgroundTintList(stateList);
-        cost_btn.setSupportBackgroundTintList(stateList);
-        rec_btn.setSupportBackgroundTintList(stateList);
-
-        cost_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showCost();
-            }
-
-            private void showCost() {
-
-                int cx = cost_body.getRight();
-                int cy = cost_body.getTop();
-
-                Log.d("centers",cx+" and "+cy);
-
-                // get the initial radius for the clipping circle
-//                float initialRadius = Math.max(cost_body.getWidth(), cost_body.getHeight());
-                float initialRadius = (float) Math.hypot(cost_body.getWidth(),cost_body.getHeight());
-
-
-                Log.d("ANIM", "" + cx + "and " + cy + " with radius" + initialRadius);
-
-                Animator anim = null;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    anim = ViewAnimationUtils.createCircularReveal(cost_body, cx, cy, 0, initialRadius);
-                }else{
-                    cost_body.setVisibility(View.VISIBLE);
-                }
-
-
-                if (anim != null) {
-                    cost_body.setVisibility(View.VISIBLE);
-                    anim.start();
-                }
-
-            }
-        });
-
-        rec_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showRecommendations();
-            }
-
-            private void showRecommendations() {
-                int cx = cost_body.getRight();
-                int cy = cost_body.getTop();
-
-                Log.d("centers",cx+" and "+cy);
-
-                // get the initial radius for the clipping circle
-//                float initialRadius = Math.max(cost_body.getWidth(), cost_body.getHeight());
-                float initialRadius = (float) Math.hypot(cost_body.getWidth(),cost_body.getHeight());
-
-
-                Log.d("ANIM", "" + cx + "and " + cy + " with radius" + initialRadius);
-
-                Animator anim = null;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    anim = ViewAnimationUtils.createCircularReveal(cost_body, cx, cy, initialRadius, 0);
-                }else{
-                    cost_body.setVisibility(View.INVISIBLE);
-
-                }
-
-//                if (anim != null) {
-//                    anim.setDuration(700);
+//        recommend_btn.setSupportBackgroundTintList(stateList);
+//        cost_btn.setSupportBackgroundTintList(stateList);
+//        rec_btn.setSupportBackgroundTintList(stateList);
+//
+//        cost_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                showCost();
+//            }
+//
+//            private void showCost() {
+//
+//                int cx = cost_body.getRight();
+//                int cy = cost_body.getTop();
+//
+//                Log.d("centers",cx+" and "+cy);
+//
+//                // get the initial radius for the clipping circle
+////                float initialRadius = Math.max(cost_body.getWidth(), cost_body.getHeight());
+//                float initialRadius = (float) Math.hypot(cost_body.getWidth(),cost_body.getHeight());
+//
+//
+//                Log.d("ANIM", "" + cx + "and " + cy + " with radius" + initialRadius);
+//
+//                Animator anim = null;
+//                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+//                    anim = ViewAnimationUtils.createCircularReveal(cost_body, cx, cy, 0, initialRadius);
+//                }else{
+//                    cost_body.setVisibility(View.VISIBLE);
 //                }
-
-                if (anim != null) {
-                    anim.addListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            super.onAnimationEnd(animation);
-                            cost_body.setVisibility(View.INVISIBLE);
-                        }
-                    });
-                }
-
-                if (anim != null) {
-                    anim.start();
-                }
-            }
-        });
+//
+//
+//                if (anim != null) {
+//                    cost_body.setVisibility(View.VISIBLE);
+//                    anim.start();
+//                }
+//
+//            }
+//        });
+//
+//        rec_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                showRecommendations();
+//            }
+//
+//            private void showRecommendations() {
+//                int cx = cost_body.getRight();
+//                int cy = cost_body.getTop();
+//
+//                Log.d("centers",cx+" and "+cy);
+//
+//                // get the initial radius for the clipping circle
+////                float initialRadius = Math.max(cost_body.getWidth(), cost_body.getHeight());
+//                float initialRadius = (float) Math.hypot(cost_body.getWidth(),cost_body.getHeight());
+//
+//
+//                Log.d("ANIM", "" + cx + "and " + cy + " with radius" + initialRadius);
+//
+//                Animator anim = null;
+//                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+//                    anim = ViewAnimationUtils.createCircularReveal(cost_body, cx, cy, initialRadius, 0);
+//                }else{
+//                    cost_body.setVisibility(View.INVISIBLE);
+//
+//                }
+//
+////                if (anim != null) {
+////                    anim.setDuration(700);
+////                }
+//
+//                if (anim != null) {
+//                    anim.addListener(new AnimatorListenerAdapter() {
+//                        @Override
+//                        public void onAnimationEnd(Animator animation) {
+//                            super.onAnimationEnd(animation);
+//                            cost_body.setVisibility(View.INVISIBLE);
+//                        }
+//                    });
+//                }
+//
+//                if (anim != null) {
+//                    anim.start();
+//                }
+//            }
+//        });
 
 
         //Calculate for batteries
@@ -244,7 +238,7 @@ public class Result extends AppCompatActivity {
 
         //Contoller calculations
         TextView conrol_no = (TextView)findViewById(R.id.conrol_no);
-//        conrol_no.setText(""+roundUpnew((long) (8.03 * modules_no * 1.25),60));
+//        conrol_no.setText(""+roundUpDivide((long) (8.03 * modules_no * 1.25),60));
         conrol_no.setText(""+roundUpnew(roundUp(controller_current),60));
 
         clickEvents();
@@ -323,21 +317,21 @@ public class Result extends AppCompatActivity {
     }
 
     private void clickEvents() {
-        recommend_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putDouble("battery",battery);
-                bundle.putInt("system_voltage",system_voltage);
-                bundle.putInt("pv_capacity",roundUp(pv_capacity));
-                bundle.putInt("controller_current",roundUp(controller_current));
-                bundle.putInt("load_demand",load_Demand);
-
-                AdvancedAdapter adapter = new AdvancedAdapter();
-                adapter.setArguments(bundle);
-                adapter.show(getSupportFragmentManager(), "bottom sheet");
-            }
-        });
+//        recommend_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Bundle bundle = new Bundle();
+//                bundle.putDouble("battery",battery);
+//                bundle.putInt("system_voltage",system_voltage);
+//                bundle.putInt("pv_capacity",roundUp(pv_capacity));
+//                bundle.putInt("controller_current",roundUp(controller_current));
+//                bundle.putInt("load_demand",load_Demand);
+//
+//                AdvancedAdapter adapter = new AdvancedAdapter();
+//                adapter.setArguments(bundle);
+//                adapter.show(getSupportFragmentManager(), "bottom sheet");
+//            }
+//        });
     }
 
     @Override

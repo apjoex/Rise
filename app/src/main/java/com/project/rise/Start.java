@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
@@ -17,11 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.Random;
-
 import adapters.ViewPagerAdapter;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import resuables.Utilities;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class Start extends AppCompatActivity {
@@ -32,10 +30,10 @@ public class Start extends AppCompatActivity {
     @InjectView(R.id.coordinatorLayout) CoordinatorLayout coordinatorLayout;
 //    View bottomSheet;
 //    BottomSheetBehavior behavior;
-
     CharSequence Titles[]={"PRESETS","CUSTOM"};
     int Numboftabs = 2;
     ViewPagerAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +52,7 @@ public class Start extends AppCompatActivity {
         tabs.setTabGravity(TabLayout.GRAVITY_FILL);
 
         tabs.setupWithViewPager(pager);
-        changeTabsFont();
+        Utilities.changeTabsFont(context, tabs);
 
 //        bottomSheet = coordinatorLayout.findViewById(R.id.design_bottom_sheet);
 //        behavior = BottomSheetBehavior.from(bottomSheet);
@@ -64,8 +62,7 @@ public class Start extends AppCompatActivity {
 
     private ViewPagerAdapter setupAdapter() {
 
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(),Titles,Numboftabs);
-        return adapter;
+        return new ViewPagerAdapter(getSupportFragmentManager(),Titles,Numboftabs);
     }
 
     @Override
@@ -88,40 +85,40 @@ public class Start extends AppCompatActivity {
             showExit();
         }
 
+        if(id == R.id.action_settings){
+            Intent intent = new Intent(context, Settings.class);
+            startActivity(intent);
+        }
+
         if(id == R.id.action_about){
             Intent intent = new Intent(context, About.class);
             startActivity(intent);
         }
 
         if(id == R.id.action_tips){
-            final CharSequence[] messages = {
-                    "Turn off all lights, appliances and electronics not in use.",
-                    "Change to new and improved energy-efficient light bulbs.",
-                    "Remember to unplug mobile phones, laptops, tablets when they are fully charged."
-            };
-            final int min = 0;
-            final int max = 2;
-            final Random r = new Random();
 
-
-            final AlertDialog.Builder tipsBuilder = new AlertDialog.Builder(context);
-            tipsBuilder.setTitle("Tip")
-                    .setMessage(messages[r.nextInt(max - min + 1) + min])
-                    .setPositiveButton("OKAY, THANKS", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                           dialogInterface.dismiss();
-                        }
-                    })
-                    .create().show();
-        }
-
-        if(id == R.id.action_feedback){
-            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                    "mailto", "apjoex@gmail.com", null));
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback on RISE");
-            emailIntent.putExtra(Intent.EXTRA_TEXT, "");
-            startActivity(Intent.createChooser(emailIntent, "Send feedback"));
+//            final CharSequence[] messages = {
+//                    "Turn off all lights, appliances and electronics not in use.",
+//                    "Change to new and improved energy-efficient light bulbs.",
+//                    "Remember to unplug mobile phones, laptops, tablets when they are fully charged."
+//            };
+//            final int min = 0;
+//            final int max = 2;
+//            final Random r = new Random();
+//
+//
+//            final AlertDialog.Builder tipsBuilder = new AlertDialog.Builder(context);
+//            tipsBuilder.setTitle("Tip")
+//                    .setMessage(messages[r.nextInt(max - min + 1) + min])
+//                    .setPositiveButton("OKAY, THANKS", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i) {
+//                           dialogInterface.dismiss();
+//                        }
+//                    })
+//                    .create().show();
+            Intent intent = new Intent(context, FAQsActivity.class);
+            startActivity(intent);
         }
 
 //        if(id == R.id.action_credit){

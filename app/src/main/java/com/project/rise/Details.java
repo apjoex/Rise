@@ -13,6 +13,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,7 +24,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -59,7 +59,7 @@ public class Details extends AppCompatActivity {
     String home_name = "";
     String saved_home = "";
     int state_postion;
-    int load_demand;
+    double load_demand;
     Database database;
     private CategorySeries mSeries = new CategorySeries("");
     private DefaultRenderer mRenderer = new DefaultRenderer();
@@ -98,14 +98,16 @@ public class Details extends AppCompatActivity {
         calc_btn.setTextColor(Color.WHITE);
 
         location.setText(state_selected+" state");
-        Toast.makeText(Details.this, "The selected state is in number "+state_postion, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(Details.this, "The selected state is in number "+state_postion, Toast.LENGTH_SHORT).show();
 
         load_demand = 0;
 
         for (int i = 0; i < appliances.size(); i++) {
             int count = Integer.valueOf(appliances.get(i).getCount());
             int load = Integer.valueOf(appliances.get(i).getWattage());
-            int duration = Integer.valueOf(appliances.get(i).getDuration());
+            double duration = Double.valueOf(appliances.get(i).getDuration());
+
+
 
             NAME_LIST[i] = appliances.get(i).getName().toUpperCase();
             VALUES[i] = (count * load * duration);
@@ -117,7 +119,7 @@ public class Details extends AppCompatActivity {
             Log.d("count", "" + count);
             Log.d("load", "" + load);
             Log.d("duration", "" + duration);
-            load_demand = load_demand + (count * load * duration);
+            load_demand = (load_demand + (count * load * duration));
         }
         showDemand();
 
@@ -164,7 +166,7 @@ public class Details extends AppCompatActivity {
 //                            }
 //                        })
 //                        .create().show();
-                Intent intent = new Intent(context, Result.class);
+                Intent intent = new Intent(context, ResultActivity.class);
                 intent.putExtra("load_Demand",load_demand);
                 startActivity(intent);
             }
@@ -287,6 +289,8 @@ public class Details extends AppCompatActivity {
             RelativeLayout linearLayout = new RelativeLayout(context);
             final EditText textEditor = new EditText(context);
             textEditor.setHint("Enter name");
+            textEditor.setSingleLine(true);
+            textEditor.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
 
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             RelativeLayout.LayoutParams numPicerParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -314,7 +318,10 @@ public class Details extends AppCompatActivity {
                             database.close();
 
                             Snackbar.make(body,"Your home configuration has been saved",Snackbar.LENGTH_SHORT).show();
-                            onResume();
+                            saved_home = "yes";
+                            getSupportActionBar().setTitle(textEditor.getText().toString());
+                            invalidateOptionsMenu();
+//                            onResume();
                         }else{
                             Snackbar.make(body,"Please choose a location and enter a name to save this home configuration", Snackbar.LENGTH_SHORT).show();
                         }

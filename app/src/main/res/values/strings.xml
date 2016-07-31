@@ -1,3 +1,87 @@
 <resources>
     <string name="app_name">Rise</string>
+
+    <string-array name="autonomy">
+        <item>1 day</item>
+        <item>2 days</item>
+        <item>3 days</item>
+        <item>4 days</item>
+        <item>5 days</item>
+        <item>6 days</item>
+        <item>7 days</item>
+    </string-array>
+
+    <string-array name="autonomy_alias">
+        <item>"1"</item>
+        <item>"2"</item>
+        <item>"3"</item>
+        <item>"4"</item>
+        <item>"5"</item>
+        <item>"6"</item>
+        <item>"7"</item>
+    </string-array>
+
+    <string-array name="factors">
+        <item>"1.25"</item>
+        <item>"1.5"</item>
+    </string-array>
+
+    <string-array name="factors_alias">
+        <item>"1.25"</item>
+        <item>"1.5"</item>
+    </string-array>
+
+    <string-array name="dod">
+        <item>"70%"</item>
+        <item>"75%"</item>
+        <item>"80%"</item>
+        <item>"85%"</item>
+    </string-array>
+
+    <string-array name="dod_alias">
+        <item>"1"</item>
+        <item>"2"</item>
+        <item>"3"</item>
+        <item>"4"</item>
+    </string-array>
+
+    <string-array name="batt">
+        <item>"70%"</item>
+        <item>"75%"</item>
+        <item>"80%"</item>
+        <item>"85%"</item>
+    </string-array>
+
+    <string-array name="batt_alias">
+        <item>"1"</item>
+        <item>"2"</item>
+        <item>"3"</item>
+        <item>"4"</item>
+    </string-array>
+
+    <string-array name="invt">
+        <item>"80%"</item>
+        <item>"85%"</item>
+        <item>"90%"</item>
+        <item>"95%"</item>
+    </string-array>
+
+    <string-array name="invt_alias">
+        <item>"1"</item>
+        <item>"2"</item>
+        <item>"3"</item>
+        <item>"4"</item>
+    </string-array>
+
+    <string-array name="contr">
+        <item>"80%"</item>
+        <item>"85%"</item>
+        <item>"90%"</item>
+    </string-array>
+
+    <string-array name="contr_alias">
+        <item>"7"</item>
+        <item>"8"</item>
+        <item>"9"</item>
+    </string-array>
 </resources>

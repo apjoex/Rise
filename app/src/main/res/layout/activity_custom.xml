@@ -29,10 +29,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Tap the + button to add an appliance"
+                android:text="Tap the + button to add an appliance\n\nTap the \u2192 button to proceed"
                 android:id="@+id/textView30"
                 android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal" />
         </RelativeLayout>
 
         <android.support.design.widget.FloatingActionButton

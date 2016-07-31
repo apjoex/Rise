@@ -24,7 +24,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewTreeObserver;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
@@ -125,9 +124,16 @@ public class Appliances extends AppCompatActivity {
                 LayoutInflater inflater = getLayoutInflater();
                 View applianceView = inflater.inflate(R.layout.common_appliances, null);
                 builder.setView(applianceView);
-                builder.setTitle("Add Appliance");
+                builder.setTitle("Add Appliance")
+                        .setPositiveButton("NEW APPLIANCE", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                                addAppliance("ENTER APPLIANCE NAME", "0");
+                            }
+                        });
 
-                Button new_item = (Button)applianceView.findViewById(R.id.new_item);
+//                Button new_item = (Button)applianceView.findViewById(R.id.new_item);
                 RelativeLayout tv_item = (RelativeLayout) applianceView.findViewById(R.id.tv_item);
                 RelativeLayout light_item = (RelativeLayout) applianceView.findViewById(R.id.light_item);
                 RelativeLayout fan_item = (RelativeLayout) applianceView.findViewById(R.id.fan_item);
@@ -138,13 +144,13 @@ public class Appliances extends AppCompatActivity {
 
                 final Dialog dialog = builder.create();
 
-                new_item.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                        addAppliance("ENTER APPLIANCE NAME", "0");
-                    }
-                });
+//                new_item.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        dialog.dismiss();
+//                        addAppliance("ENTER APPLIANCE NAME", "0");
+//                    }
+//                });
 
                 tv_item.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -246,8 +252,11 @@ public class Appliances extends AppCompatActivity {
     private void checkList() {
         if(appliances.size() == 0){
             no_list.setVisibility(View.VISIBLE);
+            getSupportActionBar().setTitle("Appliances");
         }else{
             no_list.setVisibility(View.INVISIBLE);
+            getSupportActionBar().setTitle("Appliances ("+appliances.size()+")");
+            appliance_list.scrollToPosition(appliances.size() - 1);
         }
     }
 
@@ -282,8 +291,7 @@ public class Appliances extends AppCompatActivity {
             AlertDialog.Builder info_builder = new AlertDialog.Builder(context);
             LayoutInflater inflater = getLayoutInflater();
             View infoView = inflater.inflate(R.layout.quick_info, null);
-            info_builder.setTitle("Quick Info")
-                    .setView(infoView)
+            info_builder.setView(infoView)
                     .create().show();
         }
 

@@ -44,7 +44,7 @@ public class AdvancedAdapter extends BottomSheetDialogFragment {
         context = getActivity();
         battery = getArguments().getDouble("battery");
         system_voltage = getArguments().getInt("system_voltage");
-        pv_capacity = getArguments().getInt("pv_capacity");
+        pv_capacity = getArguments().getInt("average_peak_power");
         controller_current = getArguments().getInt("controller_current");
         load_demand = getArguments().getInt("load_demand");
     }
@@ -52,10 +52,10 @@ public class AdvancedAdapter extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.activity_result, container, false);
+        View v = inflater.inflate(R.layout.fragment_advanced, container, false);
         ButterKnife.inject(this,v);
 
-        //        ep.setText(""+energy_to_be_produced+" Wh");
+        //        ep.setText(""+required_daily_energy_demand+" Wh");
         pc.setText(""+pv_capacity+" W");
 
         if(pv_capacity > 0 && pv_capacity<= 1200){

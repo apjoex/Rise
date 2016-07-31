@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="About"
-        android:id="@+id/action_about"
+    <item android:title="FAQs &amp; Tips"
+        android:id="@+id/action_tips"
         android:orderInCategory="1"/>
 
-    <item android:title="Tips"
-        android:id="@+id/action_tips"
+    <item android:title="Settings"
+        android:id="@+id/action_settings"
         android:orderInCategory="2"/>
 
-    <item android:title="Send feedback"
-        android:id="@+id/action_feedback"
-        android:orderInCategory="2"/>
+    <item android:title="About"
+        android:id="@+id/action_about"
+        android:orderInCategory="3"/>
+
+    <!--<item android:title="Send feedback"-->
+        <!--android:id="@+id/action_feedback"-->
+        <!--android:orderInCategory="4"/>-->
 
     <!--<item android:title="Learn"-->
         <!--android:id="@+id/action_learn"-->

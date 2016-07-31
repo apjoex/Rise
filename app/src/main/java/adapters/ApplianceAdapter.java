@@ -25,6 +25,7 @@ import com.project.rise.R;
 import java.util.ArrayList;
 
 import models.Appliance;
+import resuables.Utilities;
 
 /**
  * Created by AKINDE-PETERS on 3/16/2016.
@@ -98,11 +99,14 @@ public class ApplianceAdapter extends  RecyclerView.Adapter<ApplianceAdapter.Vie
         viewHolder.appliance_duration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RelativeLayout linearLayout = new RelativeLayout(context);
+
+                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                final AlertDialog.Builder minuteBuilder = new AlertDialog.Builder(context);
+
+                final RelativeLayout linearLayout = new RelativeLayout(context);
                 final NumberPicker aNumberPicker = new NumberPicker(context);
                 aNumberPicker.setMaxValue(24);
                 aNumberPicker.setMinValue(1);
-                aNumberPicker.setValue(Integer.valueOf(appliances.get(position).getDuration()));
 
                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(50, 50);
                 RelativeLayout.LayoutParams numPicerParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -111,8 +115,51 @@ public class ApplianceAdapter extends  RecyclerView.Adapter<ApplianceAdapter.Vie
                 linearLayout.setLayoutParams(params);
                 linearLayout.addView(aNumberPicker, numPicerParams);
 
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-                alertDialogBuilder.setTitle("Daily usage hours");
+                //For Minutes
+                final RelativeLayout linearLayout2 = new RelativeLayout(context);
+                final NumberPicker aNumberPicker2 = new NumberPicker(context);
+                aNumberPicker2.setMaxValue(59);
+                aNumberPicker2.setMinValue(1);
+
+                RelativeLayout.LayoutParams params2 = new RelativeLayout.LayoutParams(50, 50);
+                RelativeLayout.LayoutParams numPicerParams2 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                numPicerParams2.addRule(RelativeLayout.CENTER_HORIZONTAL);
+
+                linearLayout2.setLayoutParams(params2);
+                linearLayout2.addView(aNumberPicker2, numPicerParams2);
+
+                minuteBuilder.setTitle("Daily usage (minutes)")
+                        .setView(linearLayout2)
+                        .setCancelable(false)
+                        .setPositiveButton("SET", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Double value = Math.round((aNumberPicker2.getValue() / 60.0) * 100.0)/100.0;
+                                viewHolder.appliance_duration.setText("" + value);
+                                appliances.get(position).setDuration("" + value);
+                                notifyDataSetChanged();
+                            }
+                        })
+                        .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        })
+                        .setNeutralButton("HOURS", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                ViewGroup parent = (ViewGroup) linearLayout2.getParent();
+                                if (parent != null) {
+                                    parent.removeView(linearLayout2);
+                                }
+                                AlertDialog alertDialog = alertDialogBuilder.create();
+                                alertDialog.show();
+                            }
+                        });
+
+
+                alertDialogBuilder.setTitle("Daily usage (hours)");
                 alertDialogBuilder.setView(linearLayout);
                 alertDialogBuilder
                         .setCancelable(false)
@@ -127,13 +174,33 @@ public class ApplianceAdapter extends  RecyclerView.Adapter<ApplianceAdapter.Vie
                                 })
                         .setNegativeButton("CANCEL",
                                 new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,
-                                                        int id) {
+                                    public void onClick(DialogInterface dialog, int id) {
                                         dialog.cancel();
                                     }
-                                });
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
+                                })
+                        .setNeutralButton("MINUTES", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                ViewGroup parent = (ViewGroup) linearLayout.getParent();
+                                if (parent != null) {
+                                    parent.removeView(linearLayout);
+                                }
+                                AlertDialog minuteDialog = minuteBuilder.create();
+                                minuteDialog.show();
+                            }
+                        });
+
+                if(appliances.get(position).getDuration().contains(".")){
+                    aNumberPicker2.setValue(Utilities.roundUp(Double.valueOf(appliances.get(position).getDuration()) * 60.0));
+                    AlertDialog minuteDialog = minuteBuilder.create();
+                    minuteDialog.show();
+                }else{
+                    aNumberPicker.setValue(Integer.valueOf(appliances.get(position).getDuration()));
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                }
+
+
             }
         });
 
