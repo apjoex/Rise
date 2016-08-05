@@ -107,8 +107,6 @@ public class Details extends AppCompatActivity {
             int load = Integer.valueOf(appliances.get(i).getWattage());
             double duration = Double.valueOf(appliances.get(i).getDuration());
 
-
-
             NAME_LIST[i] = appliances.get(i).getName().toUpperCase();
             VALUES[i] = (count * load * duration);
 
@@ -116,9 +114,9 @@ public class Details extends AppCompatActivity {
             int color = Color.argb(255, rnd.nextInt(230), rnd.nextInt(230), rnd.nextInt(230));
             COLORS[i] = color;
 
-            Log.d("count", "" + count);
-            Log.d("load", "" + load);
-            Log.d("duration", "" + duration);
+//            Log.d("count", "" + count);
+//            Log.d("load", "" + load);
+//            Log.d("duration", "" + duration);
             load_demand = (load_demand + (count * load * duration));
         }
         showDemand();
@@ -134,7 +132,7 @@ public class Details extends AppCompatActivity {
         mRenderer.setZoomEnabled(false);
         mRenderer.setZoomButtonsVisible(false);
         mRenderer.setShowLegend(true);
-        mRenderer.setLegendTextSize(25);
+        mRenderer.setLegendTextSize(20);
         mRenderer.setPanEnabled(false);
         mRenderer.setStartAngle(90);
         mRenderer.setShowLabels(false);
@@ -187,7 +185,7 @@ public class Details extends AppCompatActivity {
                     SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
 
                     if (seriesSelection != null) {
-                        Snackbar.make(body, ""+appliances.get(seriesSelection.getPointIndex()).getName()+ " ("+seriesSelection.getValue()+" Wh)", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(body, appliances.get(seriesSelection.getPointIndex()).getName()+" running for "+appliances.get(seriesSelection.getPointIndex()).getDuration()+" hours consumes "+seriesSelection.getValue()+"Wh daily", Snackbar.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -211,7 +209,6 @@ public class Details extends AppCompatActivity {
                 // get the initial radius for the clipping circle
                 float initialRadius = Math.max(chart_cover.getWidth(), chart_cover.getHeight());
 
-
                 Log.d("ANIM", "" + cx + "and " + cy + " with radius" + initialRadius);
 
                 Animator anim = null;
@@ -223,9 +220,6 @@ public class Details extends AppCompatActivity {
 
                 if (anim != null) {
                     anim.setDuration(200);
-                }
-
-                if (anim != null) {
                     anim.addListener(new AnimatorListenerAdapter() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
@@ -233,9 +227,6 @@ public class Details extends AppCompatActivity {
                             chart_cover.setVisibility(View.INVISIBLE);
                         }
                     });
-                }
-
-                if (anim != null) {
                     anim.start();
                 }
 

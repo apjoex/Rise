@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import fragments.Advanced;
 import fragments.CostEstimate;
-import fragments.PayBack;
 import fragments.Recommendations;
 
 /**
@@ -33,8 +32,6 @@ public class ResultPagerAdapter extends FragmentStatePagerAdapter {
         }
         else if(position == 1) {
             return new CostEstimate();
-        }else if(position == 2){
-            return new PayBack();
         }else{
             return new Advanced();
         }

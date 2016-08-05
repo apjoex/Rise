@@ -35,6 +35,11 @@ public class Utilities {
         return (int) ((num + divisor - 1) / divisor);
     }
 
+    public static int roundUpDivideDouble(double num, long divisor)
+    {
+        return (int) ((num + divisor - 1) / divisor);
+    }
+
     public static int roundUp(double d)
     {
         DecimalFormat twoDForm = new DecimalFormat("#");
@@ -44,6 +49,12 @@ public class Utilities {
     public static double roundUpTo2dp(double d)
     {
         DecimalFormat twoDForm = new DecimalFormat("#.##");
+        return Double.parseDouble(twoDForm.format(d));
+    }
+
+    public static double roundUpTo1dp(double d)
+    {
+        DecimalFormat twoDForm = new DecimalFormat("#.#");
         return Double.parseDouble(twoDForm.format(d));
     }
 

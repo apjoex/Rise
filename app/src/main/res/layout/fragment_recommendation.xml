@@ -30,21 +30,12 @@
         android:textColor="@color/colorPrimary"
             android:layout_marginTop="15dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Name"
-        android:id="@+id/textView12"
-        android:layout_margin="5dp" />
-
-    <TextView
+        <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Luminous 200Ah 12V"
-        android:id="@+id/textView13"
-        android:layout_marginLeft="5dp" />
+        android:id="@+id/textView13" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -60,8 +51,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="1"
         android:id="@+id/batt_no"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="5dp" />
+        android:layout_marginBottom="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -72,22 +62,13 @@
         android:textColor="@color/colorPrimary"
         android:layout_marginTop="15dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Name"
-        android:id="@+id/textView16"
-        android:layout_margin="5dp" />
-
-    <TextView
+        <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Latronics inverter, LS-3024, 3000 W, 24 Vdc, 220 Vac."
         android:id="@+id/inverter_name"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="5dp" />
+        android:layout_marginBottom="10dp" />
 
 
     <TextView
@@ -99,21 +80,12 @@
         android:textColor="@color/colorPrimary"
         android:layout_marginTop="15dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Name"
-        android:id="@+id/textView20"
-        android:layout_margin="5dp" />
-
-    <TextView
+        <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/textView21"
-        android:text="TriStar TS-MPPT-60 Controller 60A 12-48V"
-        android:layout_marginLeft="5dp" />
+        android:text="TriStar TS-MPPT-60 Controller 60A 12-48V" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -129,7 +101,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="1"
         android:id="@+id/conrol_no"
-        android:layout_marginLeft="5dp"
         android:layout_marginBottom="10dp" />
 
     <TextView
@@ -141,27 +112,20 @@
         android:textColor="@color/colorPrimary"
         android:layout_marginTop="15dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Name"
-        android:id="@+id/textView24"
-        android:layout_margin="5dp" />
-
-    <TextView
+        <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Mitsubishi - MF180UD4, 180 W, 24 V, 7.45 A"
-        android:id="@+id/textView25"
-        android:layout_marginLeft="5dp" />
+        android:text="SUNTECH STP200-18-UB \n(V = 26.2V, I =7.63A, Isc = 8.12A)"
+        android:id="@+id/textView25" />
+
+        <!--Mitsubishi - MF180UD4, 180 W, 24 V, 7.45 A-->
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Number of modules"
+        android:text="Quantity"
         android:id="@+id/textView26"
         android:layout_margin="5dp" />
 
@@ -171,8 +135,25 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="2 panels in parallel"
         android:id="@+id/array_modules"
-        android:layout_marginLeft="5dp"
-        android:layout_marginBottom="5dp" />
+        android:layout_marginBottom="10dp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Cable size"
+            android:id="@+id/textView27"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginTop="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="3*35 mm\u00B2 Insulated Flexible Copper Cable"
+            android:id="@+id/cable_size"
+            android:layout_marginBottom="10dp" />
 
     </LinearLayout>
 

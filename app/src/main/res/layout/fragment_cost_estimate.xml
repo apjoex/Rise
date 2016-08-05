@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Calculating..."
+            android:text="Getting price..."
             android:id="@+id/battery_cost"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="5dp"
@@ -46,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Calculating..."
+            android:text="Getting price..."
             android:id="@+id/inverter_cost"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="5dp"
@@ -66,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Calculating..."
+            android:text="Getting price..."
             android:id="@+id/controller_cost"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="5dp"
@@ -86,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Calculating..."
+            android:text="Getting price..."
             android:id="@+id/array_cost"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="5dp"
@@ -104,10 +104,30 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="*Including 20% of equipment cost for cost of cables, design, labour, metering and control devices"
+            android:id="@+id/textView12"
+            android:layout_margin="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Calculating..."
+            android:text="Getting price..."
             android:id="@+id/total_cost"
             android:layout_margin="5dp" />
+
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="55dp"
+            android:text="CALCULATE PAY BACK"
+            android:id="@+id/payback_btn"
+            android:backgroundTint="#fff"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp" />
 
     </LinearLayout>
 

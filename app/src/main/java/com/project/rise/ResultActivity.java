@@ -35,8 +35,8 @@ public class ResultActivity extends AppCompatActivity {
     Context context;
     @InjectView(R.id.tablayout) TabLayout tabs;
     @InjectView(R.id.viewpager) ViewPager pager;
-    CharSequence Titles[]={"RECOMMENDATIONS","COST ESTIMATE","PAY BACK","ADVANCED INFO"};
-    int Numboftabs = 4;
+    CharSequence Titles[]={"RECOMMENDATIONS","COST ESTIMATE","ADVANCED INFO"};
+    int Numboftabs = 3;
     ResultPagerAdapter adapter;
 
 
