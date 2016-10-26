@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:text="APPLIANCE NAME"
-                android:id="@+id/appliance_name"
+                android:id="@+id/item_name"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textAllCaps="true"
                 android:layout_marginTop="16dp"
@@ -40,9 +40,9 @@
                 android:layout_width="match_parent"
                 android:weightSum="3"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/appliance_name"
-                android:layout_alignLeft="@+id/appliance_name"
-                android:layout_alignStart="@+id/appliance_name"
+                android:layout_below="@+id/item_name"
+                android:layout_alignLeft="@+id/item_name"
+                android:layout_alignStart="@+id/item_name"
                 android:layout_marginRight="16dp">
 
                 <RelativeLayout
@@ -152,7 +152,7 @@
                 android:id="@+id/more"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:layout_alignTop="@+id/appliance_name"
+                android:layout_alignTop="@+id/item_name"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginRight="6dp"

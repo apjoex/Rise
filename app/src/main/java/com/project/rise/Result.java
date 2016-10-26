@@ -1,6 +1,5 @@
 package com.project.rise;
 
-import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -13,7 +12,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -370,7 +368,6 @@ public class Result extends AppCompatActivity {
                 } else {
                     Toast.makeText(context, "You have denied this app the permissions to generate PDF files .",Toast.LENGTH_SHORT).show();
                 }
-                return;
             }
 
             // other 'case' lines to check for other
@@ -400,14 +397,16 @@ public class Result extends AppCompatActivity {
         }
 
         if(id == R.id.action_pdf){
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(Result.this,
-                        new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                        10);
-            }else{
-                createPdf();
-            }
-
+//            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//                ActivityCompat.requestPermissions(Result.this,
+//                        new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
+//                        10);
+//            }else{
+//                createPdf();
+//            }
+            Intent intent = new Intent(Result.this, Export.class);
+            startActivity(intent);
+            Toast.makeText(context, "Show export", Toast.LENGTH_SHORT).show();
         }
 
         return super.onOptionsItemSelected(item);

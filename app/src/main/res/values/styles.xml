@@ -11,6 +11,17 @@
         <item name="alertDialogTheme">@style/AlertDialogCustom</item>
     </style>
 
+
+    <style name="AppThemeWhite" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#fff</item>
+        <item name="colorPrimaryDark">#fff</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:alertDialogTheme">@style/AlertDialogCustom</item>
+        <item name="alertDialogTheme">@style/AlertDialogCustom</item>
+    </style>
+
     <style name="AppTheme2" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>

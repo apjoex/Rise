@@ -419,7 +419,7 @@ public class ApplianceAdapter extends  RecyclerView.Adapter<ApplianceAdapter.Vie
 
         public ViewHolder(View cardView) {
             super(cardView);
-            appliance_name = (TextView)cardView.findViewById(R.id.appliance_name);
+            appliance_name = (TextView)cardView.findViewById(R.id.item_name);
             appliance_count = (EditText)cardView.findViewById(R.id.appliance_count);
             appliance_wattage = (EditText)cardView.findViewById(R.id.appliance_load);
             appliance_duration = (EditText)cardView.findViewById(R.id.appliance_cycle);

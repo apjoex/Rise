@@ -1,10 +1,12 @@
 package com.project.rise;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -45,7 +47,6 @@ public class FAQsActivity extends AppCompatActivity {
     }
 
     private FAQsAdapter setupAdapter() {
-
         return new FAQsAdapter(getSupportFragmentManager(),Titles,Numboftabs);
     }
 
@@ -65,8 +66,22 @@ public class FAQsActivity extends AppCompatActivity {
         }
 
         if(id == R.id.action_settings){
-            Intent intent = new Intent(context, Settings.class);
-            startActivity(intent);
+            AlertDialog dialog = new AlertDialog.Builder(context)
+                    .setMessage("Please note that the settings screen is intended for professionals only.")
+                    .setPositiveButton("UNDERSTOOD", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent intent = new Intent(context, Settings.class);
+                            startActivity(intent);
+                        }
+                    })
+                    .setNegativeButton("TAKE ME BACK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    }).create();
+            dialog.show();
         }
 
         if(id == R.id.action_about){

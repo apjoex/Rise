@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Tap the + button to add an appliance\n\nTap the \u2192 button to proceed"
-                android:id="@+id/textView30"
+                android:id="@+id/placeholder"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:gravity="center_horizontal" />

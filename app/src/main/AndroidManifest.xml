@@ -22,37 +22,34 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Start"
             android:label=""
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".Appliances"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".Details"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".Result"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".About"
             android:screenOrientation="portrait" />
-
-        <activity android:name=".ResultActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".Settings"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".FAQsActivity"
-            android:screenOrientation="portrait"/>
-
+        <activity
+            android:name=".ResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Settings"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FAQsActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Export"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeWhite"/>
     </application>
 
 </manifest>

@@ -31,7 +31,7 @@ public class Recommendations extends Fragment {
                                 "Latronics LS-4024 4000W 24VDC Sine Wave Inverter",
                                 "Latronics LS-5048 5000W 48VDC Sine Wave Inverter",
                                 "Latronics LS-7048 7000W 48VDC Sine Wave Inverter"};
-    Double required_daily_energy_demand, average_peak_power, battery, controller_current, battery_efficiency, inverter_efficiency, controller_efficiency;
+    Double required_daily_energy_demand, average_peak_power, inverter_power, battery, controller_current, battery_efficiency, inverter_efficiency, controller_efficiency;
     Double total_dc_current, dod;
     int system_voltage, sun_hours, autonomy;
     double load_Demand;
@@ -110,6 +110,7 @@ public class Recommendations extends Fragment {
 
         required_daily_energy_demand = load_Demand / battery_efficiency / inverter_efficiency / controller_efficiency ;
         average_peak_power = (required_daily_energy_demand / sun_hours);
+        inverter_power = (required_daily_energy_demand / sun_hours) / 0.8;
         total_dc_current = average_peak_power / system_voltage;
         battery = (load_Demand * autonomy)/dod / 12 ;
         controller_current = 8.12 * fos * (total_dc_current / 7.63);
@@ -130,23 +131,23 @@ public class Recommendations extends Fragment {
 
         //Inverter calculations
         TextView inverter_name = (TextView)v.findViewById(R.id.inverter_name);
-        if(average_peak_power > 0 && average_peak_power < 500){
+        if(inverter_power > 0 && inverter_power < 500){
             inverter_name.setText(inverters[0]);
-        }else if(average_peak_power > 500 && average_peak_power < 1000){
+        }else if(inverter_power > 500 && inverter_power < 1000){
             inverter_name.setText(inverters[1]);
-        }else if(average_peak_power > 1000 && average_peak_power < 1500){
+        }else if(inverter_power > 1000 && inverter_power < 1500){
             inverter_name.setText(inverters[2]);
-        }else if(average_peak_power > 1500 && average_peak_power < 2000){
+        }else if(inverter_power > 1500 && inverter_power < 2000){
             inverter_name.setText(inverters[3]);
-        }else if(average_peak_power > 2000 && average_peak_power < 2500){
+        }else if(inverter_power > 2000 && inverter_power < 2500){
             inverter_name.setText(inverters[4]);
-        }else if(average_peak_power > 2500 && average_peak_power < 3000){
+        }else if(inverter_power > 2500 && inverter_power < 3000){
             inverter_name.setText(inverters[5]);
-        }else if(average_peak_power > 3000 && average_peak_power < 3500){
+        }else if(inverter_power > 3000 && inverter_power < 3500){
             inverter_name.setText(inverters[6]);
-        }else if(average_peak_power > 3500 && average_peak_power < 4000){
+        }else if(inverter_power > 3500 && inverter_power < 4000){
             inverter_name.setText(inverters[7]);
-        }else if(average_peak_power > 4000 && average_peak_power < 5000){
+        }else if(inverter_power > 4000 && inverter_power < 5000){
             inverter_name.setText(inverters[8]);
         }else{
             inverter_name.setText(inverters[9]);

@@ -6,12 +6,25 @@
     android:layout_height="match_parent"
     android:background="#ffffff">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#ffffff"
         android:orientation="vertical"
         android:id="@+id/cost_body">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="- - -"
+            android:gravity="center"
+            android:id="@+id/date_stamp"
+            android:layout_margin="10dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -121,7 +134,7 @@
         <Button
             android:layout_width="fill_parent"
             android:layout_height="55dp"
-            android:text="CALCULATE PAY BACK"
+            android:text="CALCULATE SAVINGS"
             android:id="@+id/payback_btn"
             android:backgroundTint="#fff"
             android:textColor="@color/colorPrimary"
@@ -130,5 +143,7 @@
             android:layout_marginRight="16dp" />
 
     </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

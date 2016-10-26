@@ -23,7 +23,6 @@ import java.util.Locale;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import resuables.Utilities;
 
 /**
  * Created by AKINDE-PETERS on 8/4/2016.
@@ -34,7 +33,7 @@ public class PayBack extends BottomSheetDialogFragment {
     @InjectView(R.id.paycalc_btn) AppCompatButton paycalc_btn;
     @InjectView(R.id.tariff) EditText tariff_edittext;
     @InjectView(R.id.result_container) RelativeLayout result_container;
-    @InjectView(R.id.payback_text) TextView payback_text;
+//    @InjectView(R.id.payback_text) TextView payback_text;
     @InjectView(R.id.savings_text) TextView savings_text;
     @InjectView(R.id.result_proper) RelativeLayout result_proper;
     Double load_demand, total_price, battery_price, payback, savings, year_price;
@@ -100,15 +99,15 @@ public class PayBack extends BottomSheetDialogFragment {
     private void calculatePaybackSavings() {
 
         //Calculate savings
-        year_price = 365 * load_demand * Double.parseDouble(tariff_edittext.getText().toString());
+//        year_price = 365 * (load_demand / 1000) * Double.parseDouble(tariff_edittext.getText().toString());
         double gross_price = total_price + (3 * battery_price);
-        double long_year_price = 20 * year_price;
+        double long_year_price = Double.parseDouble(tariff_edittext.getText().toString()) * 24 * (load_demand / 1000) * 365 * 20;
         savings = long_year_price - gross_price;
         savings_text.setText("₦"+ NumberFormat.getNumberInstance(Locale.US).format(savings));
 
         //Calculate payback
-        payback = total_price / Double.parseDouble(tariff_edittext.getText().toString()) / (365 * load_demand);
-        payback_text.setText(Utilities.roundUpTo1dp(payback)+" years");
+//        payback = total_price / Double.parseDouble(tariff_edittext.getText().toString()) / (365 * load_demand);
+//        payback_text.setText(Utilities.roundUpTo1dp(payback)+" years");
 
     }
 

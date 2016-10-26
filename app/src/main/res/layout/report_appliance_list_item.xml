@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="6"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingRight="3dp"
+        android:layout_height="match_parent"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Name"
+        android:id="@+id/item_name" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingRight="3dp"
+        android:gravity="center_horizontal"
+        android:layout_height="match_parent"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Watts"
+        android:id="@+id/item_watt" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingRight="3dp"
+        android:gravity="center_horizontal"
+        android:layout_height="match_parent"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Hours"
+        android:id="@+id/item_hour" />
+
+    </LinearLayout>
+</LinearLayout>

@@ -101,6 +101,8 @@ public class Advanced extends Fragment {
                 dod = 0.85;
                 break;
         }
+
+        double fos = Double.parseDouble(preferences.getString("safety_factor", "1.25"));
         sun_hours = 4;
         system_voltage = 24;
 
@@ -108,7 +110,8 @@ public class Advanced extends Fragment {
         average_peak_power = (required_daily_energy_demand / sun_hours);
         total_dc_current = average_peak_power / system_voltage;
         battery = (load_Demand * autonomy)/dod / 12 ;
-        controller_current = average_peak_power / system_voltage;
+//        controller_current = average_peak_power / system_voltage;
+        controller_current = 8.12 * fos * (total_dc_current / 7.63);
     }
 
     @Nullable
@@ -121,7 +124,7 @@ public class Advanced extends Fragment {
         pc.setText(Utilities.roundUpTo2dp(average_peak_power) +" W");
         sv.setText(system_voltage+" V");
         bbc.setText("Days of Autonomy: "+autonomy+" Days\nDepth of discharge: "+(dod*100)+"%\nCapacity: "+Utilities.roundUp(battery)+" Ah\nDC Voltage: 12 V\nEfficiency: "+(battery_efficiency*100)+"%");
-        inv.setText("DC voltage: "+system_voltage+" V\nAC voltage: 220 / 230 V\nMaximum power: "+ Utilities.roundUpTo2dp(average_peak_power) +" W\nEfficiency: "+(inverter_efficiency*100)+"%");
+        inv.setText("DC voltage: "+system_voltage+" V\nAC voltage: 220 / 230 V\nMaximum power: "+ Utilities.roundUpTo2dp(average_peak_power/0.8) +" W\nEfficiency: "+(inverter_efficiency*100)+"%");
         cont.setText("Required charge controller current: "+Utilities.roundUp(controller_current)+" A\nEfficiency: "+(controller_efficiency*100)+"%");
         array.setText("Total DC current: "+Utilities.roundUpTo2dp(total_dc_current)+" A");
 

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -36,6 +35,7 @@ import resuables.Utilities;
 public class CostEstimate extends Fragment {
 
     Context context;
+    @InjectView(R.id.date_stamp) TextView date_stamp;
     @InjectView(R.id.battery_cost) TextView battery_cost;
     @InjectView(R.id.inverter_cost) TextView inverter_cost;
     @InjectView(R.id.controller_cost) TextView controller_cost;
@@ -159,8 +159,20 @@ public class CostEstimate extends Fragment {
         int parallel_modules = Utilities.roundUp(total_dc_current /7.63);
         int series_modules = Utilities.roundUpDivide(system_voltage, (long)26.2);
         final int modules_no = parallel_modules * series_modules;
-
         final int finalNumber_of_batt = number_of_batt;
+
+        db.child("prices/date").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                date_stamp.setText("As at "+dataSnapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         db.child("prices/battery").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -171,7 +183,7 @@ public class CostEstimate extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getActivity(), "Nothing for Firebase o", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Prices currently unavailable", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -185,7 +197,7 @@ public class CostEstimate extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getActivity(), "Nothing for Firebase o", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Prices currently unavailable", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -199,7 +211,7 @@ public class CostEstimate extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getActivity(), "Nothing for Firebase o", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Prices currently unavailable", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -213,7 +225,7 @@ public class CostEstimate extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getActivity(), "Nothing for Firebase o", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Prices currently unavailable", Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -242,7 +254,7 @@ public class CostEstimate extends Fragment {
         total = total + battery_amount + array_amount + controller_amount + inverter_amount;
         total = (1.2 * total);
         total_cost.setText("≈ ₦ "+NumberFormat.getNumberInstance(Locale.US).format(total));
-        total_cost.setTypeface(Typeface.createFromAsset(getActivity().getAssets(),"fonts/Montserrat-Light.otf"), Typeface.BOLD);
+//        total_cost.setTypeface(Typeface.createFromAsset(getActivity().getAssets(),"fonts/Montserrat-Light.otf"), Typeface.BOLD);
         payback_btn.setVisibility(View.VISIBLE);
     }
 

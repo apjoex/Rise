@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -25,6 +26,7 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -44,6 +46,7 @@ public class Appliances extends AppCompatActivity {
     @InjectView(R.id.add_appliance) FloatingActionButton add_appliance;
     ArrayList<Appliance> appliances = new ArrayList<>();
     ApplianceAdapter adapter;
+    TextView placeholder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,9 @@ public class Appliances extends AppCompatActivity {
         ButterKnife.inject(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Appliances");
+
+        placeholder = (TextView)findViewById(R.id.placeholder);
+        placeholder.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Light.otf"),Typeface.BOLD);
 
         checkList();
         add_appliance.setVisibility(View.INVISIBLE);
@@ -266,6 +272,30 @@ public class Appliances extends AppCompatActivity {
         checkList();
     }
 
+    @Override
+    public void onBackPressed() {
+
+        if(appliances.size() > 0){
+            AlertDialog dialog = new AlertDialog.Builder(context)
+                    .setTitle("Confirm")
+                    .setMessage("Are you sure you want to leave this screen?")
+                    .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    }).create();
+            dialog.show();
+        }else{
+                    super.onBackPressed();
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -284,7 +314,7 @@ public class Appliances extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
 
         if(id == android.R.id.home){
-            finish();
+            onBackPressed();
         }
 
         if(id == R.id.action_info){

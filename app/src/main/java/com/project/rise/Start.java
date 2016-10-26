@@ -42,7 +42,7 @@ public class Start extends AppCompatActivity {
         ButterKnife.inject(this);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        getSupportActionBar().setHomeAsUpIndicator(R.drawable.close);
-        getSupportActionBar().setTitle("Rise");
+        getSupportActionBar().setTitle("RISE");
         getSupportActionBar().setElevation(0);
 
         adapter = setupAdapter();
@@ -86,8 +86,23 @@ public class Start extends AppCompatActivity {
         }
 
         if(id == R.id.action_settings){
-            Intent intent = new Intent(context, Settings.class);
-            startActivity(intent);
+            AlertDialog dialog = new AlertDialog.Builder(context)
+                    .setMessage("Please note that the settings screen is intended for professionals only.")
+                    .setPositiveButton("UNDERSTOOD", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent intent = new Intent(context, Settings.class);
+                            startActivity(intent);
+                        }
+                    })
+                    .setNegativeButton("TAKE ME BACK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    }).create();
+            dialog.show();
+
         }
 
         if(id == R.id.action_about){

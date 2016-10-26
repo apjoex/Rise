@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="This can be found on your monthly electricity bill"
+            android:text="*This can be found on your monthly electricity bill"
             android:id="@+id/textView20"
             android:layout_below="@+id/textView16"
             android:layout_centerHorizontal="true"
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="30dp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="/kWh"/>
+                android:text="per kW"/>
 
         </LinearLayout>
 
@@ -91,38 +91,38 @@
             android:background="#fff"
             android:id="@+id/result_proper">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Payback period"
-                android:id="@+id/textView24"
-                android:textColor="@color/colorPrimary"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp" />
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+            <!--android:text="Payback period"-->
+            <!--android:id="@+id/textView24"-->
+            <!--android:textColor="@color/colorPrimary"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_marginTop="20dp" />-->
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+            <!--android:text="-&#45;&#45;"-->
+            <!--android:id="@+id/payback_text"-->
+            <!--android:layout_below="@+id/textView24"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:textSize="30dp" />-->
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="---"
-                android:id="@+id/payback_text"
-                android:layout_below="@+id/textView24"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:textSize="30dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Savings"
+                android:text="Estimated savings"
                 android:textColor="@color/colorPrimary"
                 android:id="@+id/textView42"
                 android:layout_below="@+id/payback_text"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp" />
+                android:layout_marginTop="60dp" />
 
             <TextView
                 android:layout_width="280dp"

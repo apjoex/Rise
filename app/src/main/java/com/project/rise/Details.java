@@ -166,6 +166,7 @@ public class Details extends AppCompatActivity {
 //                        .create().show();
                 Intent intent = new Intent(context, ResultActivity.class);
                 intent.putExtra("load_Demand",load_demand);
+                intent.putParcelableArrayListExtra("appliances", appliances);
                 startActivity(intent);
             }
         });
@@ -256,8 +257,10 @@ public class Details extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_details, menu);
         if (saved_home!= null && !saved_home.equals("")) {
             menu.getItem(0).setVisible(false);
+//            menu.getItem(1).setVisible(true);
         }else{
             menu.getItem(0).setVisible(true);
+//            menu.getItem(1).setVisible(false);
         }
 
         return true;
@@ -328,6 +331,10 @@ public class Details extends AppCompatActivity {
             AlertDialog alertDialog = editorBuilder.create();
             alertDialog.show();
         }
+
+//        if(id == R.id.action_edit){
+//
+//        }
 
         return super.onOptionsItemSelected(item);
     }
