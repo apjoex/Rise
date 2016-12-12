@@ -44,7 +44,7 @@ public class CostEstimate extends Fragment {
     @InjectView(R.id.payback_btn) AppCompatButton payback_btn;
 
     Double required_daily_energy_demand, average_peak_power, battery, controller_current, battery_efficiency, inverter_efficiency, controller_efficiency;
-    Double total_dc_current, dod;
+    Double total_dc_current, dod, gen_kva;
     int system_voltage, sun_hours, autonomy;
     double load_Demand;
     double total = 0;
@@ -126,6 +126,7 @@ public class CostEstimate extends Fragment {
 
         required_daily_energy_demand = load_Demand / battery_efficiency / inverter_efficiency / controller_efficiency ;
         average_peak_power = (required_daily_energy_demand / sun_hours);
+        gen_kva = average_peak_power / 0.8;
         total_dc_current = average_peak_power / system_voltage;
         battery = (load_Demand * autonomy)/dod / 12 ;
         controller_current = 8.12 * fos * (total_dc_current / 7.63);
@@ -240,6 +241,7 @@ public class CostEstimate extends Fragment {
             public void onClick(View view) {
                 PayBack modalBottomSheet = new PayBack();
                 Bundle bundle = new Bundle();
+                bundle.putDouble("kva",gen_kva);
                 bundle.putDouble("load_Demand",load_Demand);
                 bundle.putDouble("total",total);
                 bundle.putDouble("battery_price",battery_amount);

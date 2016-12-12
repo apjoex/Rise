@@ -130,8 +130,7 @@ public class Appliances extends AppCompatActivity {
                 LayoutInflater inflater = getLayoutInflater();
                 View applianceView = inflater.inflate(R.layout.common_appliances, null);
                 builder.setView(applianceView);
-                builder.setTitle("Add Appliance")
-                        .setPositiveButton("NEW APPLIANCE", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("NEW APPLIANCE", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 dialogInterface.dismiss();

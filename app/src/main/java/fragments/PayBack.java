@@ -36,7 +36,7 @@ public class PayBack extends BottomSheetDialogFragment {
 //    @InjectView(R.id.payback_text) TextView payback_text;
     @InjectView(R.id.savings_text) TextView savings_text;
     @InjectView(R.id.result_proper) RelativeLayout result_proper;
-    Double load_demand, total_price, battery_price, payback, savings, year_price;
+    Double load_demand, total_price, battery_price, payback, savings, year_price, gen_kva;
 
     static BottomSheetDialogFragment newInstance() {
         return new BottomSheetDialogFragment();
@@ -46,6 +46,7 @@ public class PayBack extends BottomSheetDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getActivity();
+        gen_kva = getArguments().getDouble("kva");
         load_demand = getArguments().getDouble("load_Demand");
         total_price = getArguments().getDouble("total");
         battery_price = getArguments().getDouble("battery_price");
@@ -83,7 +84,7 @@ public class PayBack extends BottomSheetDialogFragment {
                         public void onFinish() { result_proper.setVisibility(View.VISIBLE); }
                     }.start();
                 }else{
-                    Toast.makeText(getActivity(), "Please enter your electricity tariff", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Please enter the pump price of petrol", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -101,9 +102,13 @@ public class PayBack extends BottomSheetDialogFragment {
         //Calculate savings
 //        year_price = 365 * (load_demand / 1000) * Double.parseDouble(tariff_edittext.getText().toString());
         double gross_price = total_price + (3 * battery_price);
-        double long_year_price = Double.parseDouble(tariff_edittext.getText().toString()) * 24 * (load_demand / 1000) * 365 * 20;
+        double gen_price;
+        double fuel = Double.parseDouble(tariff_edittext.getText().toString()) * 2 * 24 * 365 * 20;
+        double gen = 1.1 * 5 * 200000;
+        double long_year_price = fuel + gen;
+
         savings = long_year_price - gross_price;
-        savings_text.setText("₦"+ NumberFormat.getNumberInstance(Locale.US).format(savings));
+        savings_text.setText("₦ "+ NumberFormat.getNumberInstance(Locale.US).format(savings));
 
         //Calculate payback
 //        payback = total_price / Double.parseDouble(tariff_edittext.getText().toString()) / (365 * load_demand);
